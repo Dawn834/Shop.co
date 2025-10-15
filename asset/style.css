@@ -1,0 +1,62 @@
+
+/* import font Integral CF */
+@font-face {
+    font-family: 'Integral';
+    src: url(./Font/Integral-CF-Font-Family/Fontspring-DEMO-integralcf-regular.otf);
+}
+
+:root{
+    --font-shatoshi:'Satoshi', sans-serif;
+    --font-Integral: 'Integral', sans-serif;
+    --bg-category_item:rgba(240, 238, 237, 1);
+}
+h1{
+    font-size: 64px;
+    font-weight: 700;
+}
+
+h2{
+    font-size: 48px;
+    font-weight: 700;
+}
+
+h3{
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.btn-w{
+    border: 1px, rgba(0, 0, 0, 0.1), solid;
+    color: rgba(0, 0, 0, 1);
+}
+
+.btn-d{
+    background-color: rgba(0, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+.box-item{
+    width: 295px;
+    height: 298px;
+    background-color: var(--bg-category_item);
+}
+
+/* Main CSS */
+.top-header{
+    background-color: #000000;
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 38px;
+    justify-content: center;
+    align-items: center;
+}
+.top-header p{
+    font-family: var(--font-shatoshi);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 1);
+}
+.top-header svg{
+    position: absolute;
+    right: 10%;
+}
