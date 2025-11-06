@@ -227,6 +227,7 @@ header .search-box input {
 header .mobile-menu-btn {
     margin: 0 20px 5px 0;
     display: none;
+    cursor: pointer;
 }
 
 /* MOBILE MENU POPUP */
@@ -261,9 +262,10 @@ header .mobile-menu-popup {
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    
 }
 
-.header mobile-menu-popup.active {
+header .mobile-menu-popup.active {
     left: 0;
 }
 
@@ -281,6 +283,10 @@ header .mobile-menu-header h2 {
     font-size: 20px;
     font-weight: 600;
     font-family: var(--font-shatoshi);
+}
+header .mobile-menu-links svg{
+    
+    
 }
 
 header .close-btn {
@@ -528,7 +534,7 @@ footer .footer-content {
     display: flex;
     justify-content: space-between;
     gap: 5%;
-    margin-bottom: 50px;
+    margin: 50px 0;
     flex-wrap: wrap;
 }
 
@@ -966,6 +972,7 @@ footer .payment-icon {
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
+    text-align: center;
 }
 
 .show-all-btn:hover {
@@ -990,6 +997,12 @@ footer .payment-icon {
     .product-container .price-item {
         font-size: 20px;
     }
+}
+@media (max-width:600px) {
+    .show-all-btn{
+        width: 90%;
+    }
+    
 }
 
 /* Styles CSS */
@@ -1161,6 +1174,7 @@ footer .payment-icon {
     padding: 28px 32px;
     border: 1px rgba(0, 0, 0, 0.1) solid;
     border-radius: 20px;
+    margin-bottom: 20px;
 }
 
 .feedback-card .stars {
