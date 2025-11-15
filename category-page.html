@@ -29,6 +29,7 @@
         .sidebar-container {
             border: 1px rgba(0, 0, 0, 0.1) solid;
             border-radius: 20px;
+            height: fit-content;
         }
 
         .sidebar {
@@ -221,7 +222,6 @@
             align-items: center;
             margin-bottom: 24px;
             background: white;
-            padding: 20px 24px;
             border-radius: 12px;
         }
 
@@ -236,6 +236,60 @@
 
         .sort-dropdown .btn.show {
             background-color: rgba(240, 240, 240, 1);
+        }
+
+        /* Pagination css */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .pagination-number {
+            display: flex;
+        }
+
+        .page-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .page-item:hover,
+        .btn-next:hover,
+        .btn-prev:hover {
+            transform: scale(1.1);
+            background-color: rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            
+        }
+
+        .page-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            color: #000;
+        }
+
+        .btn-prev,
+        .btn-next {
+            display: flex;
+            align-items: center;
+            justify-content: none;
+            width: fit-content !important;
+            font-size: 14px;
+            font-weight: 500;
+            gap: 4px;
+            padding: 0 5px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease
         }
     </style>
 </head>
@@ -722,16 +776,6 @@
                 <!-- Header -->
                 <div class="header-section">
                     <p class="header-title">Casual</p>
-                    <!-- <div class="sort-dropdown">
-                        <span class="text-muted me-2">Showing 1-10 of 100 Products. Sort by:</span>
-                        <strong>Most Popular</strong> <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.5306 1.53063L6.53063 6.53063C6.46095 6.60055 6.37816 6.65602 6.28699 6.69388C6.19583 6.73173 6.09809 6.75122 5.99938 6.75122C5.90067 6.75122 5.80293 6.73173 5.71176 6.69388C5.6206 6.65602 5.53781 6.60055 5.46813 6.53063L0.468128 1.53063C0.327232 1.38973 0.248077 1.19864 0.248077 0.999378C0.248077 0.80012 0.327232 0.609024 0.468128 0.468128C0.609025 0.327231 0.800121 0.248077 0.999378 0.248077C1.19864 0.248077 1.38973 0.327231 1.53063 0.468128L6 4.9375L10.4694 0.467503C10.6103 0.326607 10.8014 0.247452 11.0006 0.247452C11.1999 0.247452 11.391 0.326607 11.5319 0.467503C11.6728 0.608399 11.7519 0.799496 11.7519 0.998753C11.7519 1.19801 11.6728 1.38911 11.5319 1.53L11.5306 1.53063Z"
-                                    fill="black" />
-                            </svg>
-                        </span>
-                    </div> -->
                     <div style="display: flex; align-items: center;">
                         <span class="text-muted">Showing 1-10 of 100 Products. Sort by:</span>
                         <div class="dropdown sort-dropdown">
@@ -756,20 +800,431 @@
                 </div>
 
                 <!-- Product Grid -->
-
-
+                <div class="container row d-flex flex-wrap ">
+                    <div class="product-card col-6 col-sm-4 ">
+                        <div class="product-item">
+                            <img src="./asset/img/product-item/Tshirt.png" alt="T shirt">
+                        </div>
+                        <div class="product-detail">
+                            <p class="name-item">
+                                T-shirt with Tape Details
+                            </p>
+                            <div class="rating-container">
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <p class="rating-text">4.5/5</p>
+                            </div>
+                            <p class="price-item">$120</p>
+                        </div>
+                    </div>
+                    <div class="product-card col-6 col-sm-4 ">
+                        <div class="product-item">
+                            <img src="./asset/img/product-item/jeans.png" alt="T shirt">
+                        </div>
+                        <div class="product-detail">
+                            <p class="name-item">
+                                Skinny Fit Jeans
+                            </p>
+                            <div class="rating-container">
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <p class="rating-text">3.5/5</p>
+                            </div>
+                            <p class="price-item">$240
+                                <span class="price-sale">$260</span>
+                                <span class="discount-badge">-20%</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="product-card col-6 col-sm-4 ">
+                        <div class="product-item">
+                            <img src="./asset/img/product-item/checkered-shirt.png" alt="T shirt">
+                        </div>
+                        <div class="product-detail">
+                            <p class="name-item">checkered-shirt</p>
+                            <div class="rating-container">
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <p class="rating-text">4.5/5</p>
+                            </div>
+                            <p class="price-item">$180</p>
+                        </div>
+                    </div>
+                    <div class="product-card col-6 col-sm-4 ">
+                        <div class="product-item">
+                            <img src="./asset/img/product-item/Tshirt2.png" alt="T shirt">
+                        </div>
+                        <div class="product-detail">
+                            <p class="name-item">sleeve striped t-shirt</p>
+                            <div class="rating-container">
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <p class="rating-text">4.5/5</p>
+                            </div>
+                            <p class="price-item">$130
+                                <span class="price-sale">$160</span>
+                                <span class="discount-badge">-30%</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="product-card col-6 col-sm-4 ">
+                        <div class="product-item">
+                            <img src="./asset/img/product-item/Tshirt.png" alt="T shirt">
+                        </div>
+                        <div class="product-detail">
+                            <p class="name-item">
+                                T-shirt with Tape Details
+                            </p>
+                            <div class="rating-container">
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <p class="rating-text">4.5/5</p>
+                            </div>
+                            <p class="price-item">$120</p>
+                        </div>
+                    </div>
+                    <div class="product-card col-6 col-sm-4 ">
+                        <div class="product-item">
+                            <img src="./asset/img/product-item/jeans.png" alt="T shirt">
+                        </div>
+                        <div class="product-detail">
+                            <p class="name-item">
+                                Skinny Fit Jeans
+                            </p>
+                            <div class="rating-container">
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <p class="rating-text">3.5/5</p>
+                            </div>
+                            <p class="price-item">$240
+                                <span class="price-sale">$260</span>
+                                <span class="discount-badge">-20%</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="product-card col-6 col-sm-4 ">
+                        <div class="product-item">
+                            <img src="./asset/img/product-item/checkered-shirt.png" alt="T shirt">
+                        </div>
+                        <div class="product-detail">
+                            <p class="name-item">checkered-shirt</p>
+                            <div class="rating-container">
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <p class="rating-text">4.5/5</p>
+                            </div>
+                            <p class="price-item">$180</p>
+                        </div>
+                    </div>
+                    <div class="product-card col-6 col-sm-4 ">
+                        <div class="product-item">
+                            <img src="./asset/img/product-item/Tshirt2.png" alt="T shirt">
+                        </div>
+                        <div class="product-detail">
+                            <p class="name-item">sleeve striped t-shirt</p>
+                            <div class="rating-container">
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <p class="rating-text">4.5/5</p>
+                            </div>
+                            <p class="price-item">$130
+                                <span class="price-sale">$160</span>
+                                <span class="discount-badge">-30%</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="product-card col-6 col-sm-4 ">
+                        <div class="product-item">
+                            <img src="./asset/img/product-item/Tshirt.png" alt="T shirt">
+                        </div>
+                        <div class="product-detail">
+                            <p class="name-item">
+                                T-shirt with Tape Details
+                            </p>
+                            <div class="rating-container">
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                        fill="#FFC633" />
+                                </svg>
+                                <p class="rating-text">4.5/5</p>
+                            </div>
+                            <p class="price-item">$120</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="line-border"></div>
                 <!-- Pagination -->
                 <div class="pagination">
-                    <div class="page-item"><i class="bi bi-chevron-left"></i></div>
-                    <div class="page-item active">1</div>
-                    <div class="page-item">2</div>
-                    <div class="page-item">3</div>
-                    <div class="page-item">...</div>
-                    <div class="page-item">8</div>
-                    <div class="page-item">9</div>
-                    <div class="page-item">10</div>
-                    <div class="page-item"><i class="bi bi-chevron-right"></i></div>
-                    <div class="page-item ms-2">Next <i class="bi bi-arrow-right ms-1"></i></div>
+                    <div class="btn-next ms-2"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.70406 4.4541L2.95406 11.2041C2.84918 11.3086 2.76597 11.4328 2.70919 11.5696C2.6524 11.7063 2.62317 11.8529 2.62317 12.001C2.62317 12.149 2.6524 12.2957 2.70919 12.4324C2.76597 12.5691 2.84918 12.6933 2.95406 12.7979L9.70406 19.5479C9.91541 19.7592 10.2021 19.8779 10.5009 19.8779C10.7998 19.8779 11.0865 19.7592 11.2978 19.5479C11.5092 19.3365 11.6279 19.0499 11.6279 18.751C11.6279 18.4521 11.5092 18.1654 11.2978 17.9541L6.46875 13.125L20.25 13.125C20.5484 13.125 20.8345 13.0065 21.0455 12.7955C21.2565 12.5846 21.375 12.2984 21.375 12C21.375 11.7017 21.2565 11.4155 21.0455 11.2045C20.8345 10.9936 20.5484 10.875 20.25 10.875L6.46875 10.875L11.2988 6.04598C11.5101 5.83463 11.6288 5.54799 11.6288 5.2491C11.6288 4.95022 11.5101 4.66357 11.2988 4.45223C11.0874 4.24088 10.8008 4.12215 10.5019 4.12215C10.203 4.12215 9.91634 4.24088 9.705 4.45223L9.70406 4.4541Z"
+                                    fill="black" />
+                            </svg>
+                        </span>Previous</div>
+                    <div class="pagination-number">
+                        <div class="page-item active" onclick="selectColor(this)">1</div>
+                        <div class="page-item" onclick="selectColor(this)">2</div>
+                        <div class="page-item" onclick="selectColor(this)">3</div>
+                        <div class="page-item">...</div>
+                        <div class="page-item" onclick="selectColor(this)">8</div>
+                        <div class="page-item" onclick="selectColor(this)">9</div>
+                        <div class="page-item" onclick="selectColor(this)">10</div>
+                    </div>
+                    <div class="btn-prev ms-2">Next <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.2959 4.4541L21.0459 11.2041C21.1508 11.3086 21.234 11.4328 21.2908 11.5696C21.3476 11.7063 21.3768 11.8529 21.3768 12.001C21.3768 12.149 21.3476 12.2957 21.2908 12.4324C21.234 12.5691 21.1508 12.6933 21.0459 12.7979L14.2959 19.5479C14.0846 19.7592 13.7979 19.8779 13.4991 19.8779C13.2002 19.8779 12.9135 19.7592 12.7022 19.5479C12.4908 19.3365 12.3721 19.0499 12.3721 18.751C12.3721 18.4521 12.4908 18.1654 12.7022 17.9541L17.5313 13.125L3.75 13.125C3.45163 13.125 3.16548 13.0065 2.9545 12.7955C2.74353 12.5846 2.625 12.2984 2.625 12C2.625 11.7017 2.74353 11.4155 2.95451 11.2045C3.16548 10.9936 3.45163 10.875 3.75 10.875L17.5313 10.875L12.7013 6.04598C12.4899 5.83463 12.3712 5.54799 12.3712 5.2491C12.3712 4.95022 12.4899 4.66357 12.7013 4.45223C12.9126 4.24088 13.1992 4.12215 13.4981 4.12215C13.797 4.12215 14.0837 4.24088 14.295 4.45223L14.2959 4.4541Z"
+                                    fill="black" />
+                            </svg>
+                        </span></div>
+
+                    <script>
+                        function selectColor(element) {
+                            document.querySelectorAll('.page-item').forEach(color => {
+                                color.classList.remove('active');
+                            });
+                            element.classList.add('active');
+                        }
+                    </script>
                 </div>
             </div>
 
@@ -780,8 +1235,8 @@
 
 
     <footer class="container-fluid">
-        <div class="newsletter-section container">
-            <h2 class="newsletter-title container">STAY UPTO DATE ABOUT OUR LATEST OFFERS</h2>
+        <div class="newsletter-section">
+            <h2 class="newsletter-title">STAY UPTO DATE ABOUT OUR LATEST OFFERS</h2>
             <div class="newsletter-form">
                 <div class="email-input">
                     <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
