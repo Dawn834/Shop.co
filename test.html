@@ -1,322 +1,582 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống phân trang sản phẩm</title>
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+    <link rel="stylesheet" href="./asset/reset.css">
+    <link rel="stylesheet" href="./asset/style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .sidebar-container {
+            border: 1px rgba(0, 0, 0, 0.1) solid;
+            border-radius: 20px;
+            height: fit-content;
         }
 
-        body {
-            background-color: #f5f5f5;
-            padding: 20px;
+        .sidebar {
+            width: 100%;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .sidebar-title {
+            font-size: 20px;
+            font-weight: 700;
         }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
+        .line-border {
+            margin: 20px 0;
+            border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
         }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .product-image {
-            height: 150px;
-            background-color: #e9ecef;
-            border-radius: 5px;
+        .filter-section {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            color: #6c757d;
+            justify-content: space-between;
         }
 
-        .product-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #333;
+        /* Ẩn mũi tên dropdown mặc định */
+        .btn.dropdown-toggle::after {
+            display: none !important;
         }
 
-        .product-price {
-            color: #e74c3c;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .pagination {
+        .filter-option button {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        /* Price filter css */
+        /* Price Range Slider Styles */
+        .price-range-slider {
+            position: relative;
+            height: 6px;
+            margin: 30px 0;
+        }
+
+        .price-range-track {
+            position: absolute;
+            width: 100%;
+            height: 6px;
+            background: #e5e5e5;
+            border-radius: 3px;
+        }
+
+        .price-range-fill {
+            position: absolute;
+            height: 6px;
+            background: #000;
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .price-input {
+            position: absolute;
+            width: 100%;
+            height: 6px;
+            background: none;
+            pointer-events: none;
+            -webkit-appearance: none;
+            top: 0;
+        }
+
+        .price-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #000;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .price-input::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #000;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #priceMax {
+            z-index: 2;
+        }
+
+        /* color css */
+        .color-picker {
+            display: flex;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
-        .page-btn {
-            padding: 8px 15px;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 4px;
+        .color-option {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             cursor: pointer;
-            transition: all 0.3s ease;
+            border: 1px solid;
+            transition: all 0.2s;
         }
 
-        .page-btn:hover {
-            background: #f8f9fa;
+        .color-option:hover {
+            transform: scale(1.1);
         }
 
-        .page-btn.active {
-            background: #3498db;
+        .color-option.active {
+            border: 2px solid;
+        }
+
+        .color-option.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px white, 0 0 0 4px var(--primary-color);
+        }
+
+        /* Size css */
+        /* .size-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        } */
+        .size-option {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .size-option p {
+            width: fit-content;
+            padding: 10px;
+            border-radius: 62px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 400;
+            background-color: rgba(240, 240, 240, 1);
+        }
+
+        .size-option p:hover {
+            transform: scale(1.1);
+        }
+
+        .size-option p.active {
+            background: rgba(0, 0, 0, 1);
             color: white;
-            border-color: #3498db;
         }
 
-        .page-btn:disabled {
-            background: #f8f9fa;
-            color: #adb5bd;
-            cursor: not-allowed;
+        .filter-option .btn {
+            border: none;
         }
 
-        .page-info {
-            margin: 0 15px;
-            color: #6c757d;
+        .filter-option .btn.show {
+            background-color: rgba(240, 240, 240, 1);
+            color: #000;
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        /* apply filer btn */
+        .apply-filter-btn {
+            background-color: #000;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+            border-radius: 62px;
+            transition: all 0.2s ease;
+            margin-top: 20px;
         }
 
-        @media (max-width: 600px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
+        .apply-filter-btn:hover {
+            transform: translateY(-5px);
+        }
 
-            .pagination {
-                gap: 5px;
-            }
+        .sidebar-title:hover svg,
+        .filter-option:hover svg {
+            transform: rotate(180deg);
+        }
 
-            .page-btn {
-                padding: 6px 10px;
-            }
+        /* New css popup */
+        .collapse {
+            border-radius: 20px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .collapse:hover {
+            background-color: rgba(240, 240, 240, 1);
+        }
+
+        .filter-option.collapse .collapse:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .filter-option.collapse svg{
+            transform: rotate(0) !important;
+        }
+        .filter-option.collapse:hover svg{
+            transform: rotate(180deg) !important;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Danh sách sản phẩm</h1>
+    <div class="col-lg-3 mb-4 sidebar-container popup p-4">
+        <div class="sidebar">
+            <div class="filter-section">
+                <p class="sidebar-title">Filters</p>
+                <button>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15.4238 13.8329C15.6352 14.0442 15.7539 14.3309 15.7539 14.6298C15.7539 14.9286 15.6352 15.2153 15.4238 15.4266C15.2125 15.638 14.9258 15.7567 14.627 15.7567C14.3281 15.7567 14.0414 15.638 13.8301 15.4266L7.87789 9.47258L1.92383 15.4248C1.71248 15.6361 1.42584 15.7548 1.12695 15.7548C0.828065 15.7548 0.541421 15.6361 0.330077 15.4248C0.118732 15.2134 4.45375e-09 14.9268 0 14.6279C-4.45375e-09 14.329 0.118732 14.0424 0.330077 13.831L6.28414 7.87883L0.331951 1.92476C0.120607 1.71342 0.00187504 1.42677 0.00187504 1.12789C0.00187505 0.829003 0.120607 0.542358 0.331951 0.331014C0.543296 0.11967 0.82994 0.000937346 1.12883 0.000937343C1.42771 0.00093734 1.71436 0.11967 1.9257 0.331014L7.87789 6.28508L13.832 0.330076C14.0433 0.118732 14.3299 -4.97944e-09 14.6288 0C14.9277 4.97944e-09 15.2144 0.118732 15.4257 0.330076C15.637 0.541421 15.7558 0.828065 15.7558 1.12695C15.7558 1.42584 15.637 1.71248 15.4257 1.92383L9.47164 7.87883L15.4238 13.8329Z"
+                            fill="black" fill-opacity="0.4" />
+                    </svg>
+                </button>
+            </div>
+            <div class="line-border"></div>
 
-        <div class="products-grid" id="productsGrid">
-            <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
-        </div>
+            <!-- Default dropdown button -->
+            <div class="filter-option">
+                <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample5"
+                    aria-expanded="false" aria-controls="collapseExample5">
+                    Dress Style <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                </button>
 
-        <div class="pagination" id="pagination">
-            <!-- Nút phân trang sẽ được thêm vào đây bằng JavaScript -->
+                <!-- Default dropdown element-->
+                <div class="collapse" id="collapseExample5">Action</div>
+                <div class="collapse" id="collapseExample5">Action2</div>
+                <div class="collapse" id="collapseExample5">Action3</div>
+            </div>
+            <div class="filter-option">
+                <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample9"
+                    aria-expanded="false" aria-controls="collapseExample9">
+                    T-Shirts <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                </button>
+
+                <!-- Default dropdown element-->
+                <div class="collapse" id="collapseExample9">Action</div>
+                <div class="collapse" id="collapseExample9">Action2</div>
+                <div class="collapse" id="collapseExample9">Action3</div>
+            </div>
+            <div class="filter-option">
+                <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample6"
+                    aria-expanded="false" aria-controls="collapseExample6">
+                    Shirts <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                </button>
+
+                <!-- Default dropdown element-->
+                <div class="collapse" id="collapseExample6">Action</div>
+                <div class="collapse" id="collapseExample6">Action2</div>
+                <div class="collapse" id="collapseExample6">Action3</div>
+            </div>
+            <div class="filter-option">
+                <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample7"
+                    aria-expanded="false" aria-controls="collapseExample7">
+                    Shorts <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                </button>
+
+                <!-- Default dropdown element-->
+                <div class="collapse" id="collapseExample7">Action</div>
+                <div class="collapse" id="collapseExample7">Action2</div>
+                <div class="collapse" id="collapseExample7">Action3</div>
+            </div>
+            <div class="filter-option">
+                <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample8"
+                    aria-expanded="false" aria-controls="collapseExample8">
+                    Hoodie <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                </button>
+
+                <!-- Default dropdown element-->
+                <div class="collapse" id="collapseExample8">Action</div>
+                <div class="collapse" id="collapseExample8">Action2</div>
+                <div class="collapse" id="collapseExample8">Action3</div>
+            </div>
+            <div class="line-border"></div>
+
+
+
+            <!-- Price Filter -->
+            <div class="filter-option">
+                <button class="btn sidebar-title" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+                    Price <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                </button>
+                <!-- <div class="filter-title">
+                            <span>Price</span>
+                            <i class="bi bi-chevron-up"></i>
+                        </div> -->
+                <div class="mt-3 collapse" id="collapseExample1">
+                    <div class="price-range-slider">
+                        <div class="price-range-track"></div>
+                        <div class="price-range-fill" id="priceRangeFill"></div>
+                        <input type="range" class="price-input" id="priceMin" min="0" max="500" value="50" step="10">
+                        <input type="range" class="price-input" id="priceMax" min="0" max="500" value="200" step="10">
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <span class="fw-bold" id="minPriceLabel">$50</span>
+                        <span class="fw-bold" id="maxPriceLabel">$200</span>
+                    </div>
+                </div>
+            </div>
+            <div class="line-border"></div>
+
+            <!-- Colors Filter -->
+            <div class="filter-option">
+                <button class="btn sidebar-title" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                    Colors <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                </button>
+                <div class="color-picker collapse" id="collapseExample2">
+                    <div class="color-option active" style="background: #22C55E; border-color: #144225;"
+                        onclick="selectColor(this)" title="Green"></div>
+                    <div class="color-option" style="background: #EF4444; border-color: #bd0808;"
+                        onclick="selectColor(this)" title="Red">
+                    </div>
+                    <div class="color-option" style="background: #FFA500; border-color: #a06b08;"
+                        onclick="selectColor(this)" title="Orange"></div>
+                    <div class="color-option" style="background: #3B82F6; border-color: #043d9a;"
+                        onclick="selectColor(this)" title="Blue">
+                    </div>
+                    <div class="color-option" style="background: #0EA5E9; border-color: rgb(22, 87, 118)9;"
+                        onclick="selectColor(this)" title="Cyan"></div>
+                    <div class="color-option" style="background: #8B5CF6; border-color: #34089d;"
+                        onclick="selectColor(this)" title="Purple"></div>
+                    <div class="color-option" style="background: #EC4899; border-color: #a20855;"
+                        onclick="selectColor(this)" title="Pink">
+                    </div>
+                    <div class="color-option" style="background: #000000; border-color: #000;"
+                        onclick="selectColor(this)" title="Black">
+                    </div>
+                    <div class="color-option" style="background: #3B82F6; border-color: #043d9a;" title="Blue">
+                    </div>
+                    <div class="color-option" style="background: #0EA5E9; border-color: rgb(22, 87, 118)9;"
+                        title="Cyan"></div>
+                    <div class="color-option" style="background: #8B5CF6; border-color: #34089d;" title="Purple"></div>
+                    <div class="color-option" style="background: #EC4899; border-color: #a20855;" title="Pink">
+                    </div>
+                </div>
+            </div>
+            <script>
+                function selectColor(element) {
+                    document.querySelectorAll('.color-option').forEach(color => {
+                        color.classList.remove('active');
+                    });
+                    element.classList.add('active');
+                }
+            </script>
+            <div class="line-border"></div>
+
+            <!-- Size Filter -->
+            <div class="filter-option">
+                <button class="btn sidebar-title" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+                    Size <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                </button>
+                <div class="row collapse" id="collapseExample3">
+                    <div class="size-option col-6">
+                        <p class="active" onclick="selectColor(this)">
+                            XX-Small
+                        </p>
+                    </div>
+                    <div class="size-option col-6">
+                        <p onclick="selectColor(this)">
+                            X-Small
+                        </p>
+                    </div>
+                    <div class="size-option col-6">
+                        <p onclick="selectColor(this)">
+                            Small
+                        </p>
+                    </div>
+                    <div class="size-option col-6">
+                        <p onclick="selectColor(this)">
+                            Medium
+                        </p>
+                    </div>
+                    <div class="size-option col-6">
+                        <p onclick="selectColor(this)">
+                            Large
+                        </p>
+                    </div>
+                    <div class="size-option col-6">
+                        <p onclick="selectColor(this)">
+                            X-Large
+                        </p>
+                    </div>
+                    <div class="size-option col-6">
+                        <p onclick="selectColor(this)">
+                            XX-Large
+                        </p>
+                    </div>
+                    <div class="size-option col-6">
+                        <p onclick="selectColor(this)">
+                            3X-Large
+                        </p>
+                    </div>
+                    <div class="size-option col-6">
+                        <p onclick="selectColor(this)">
+                            4X-Large
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function selectColor(element) {
+                    document.querySelectorAll('.size-option p').forEach(color => {
+                        color.classList.remove('active');
+                    });
+                    element.classList.add('active');
+                }
+            </script>
+            <div class="line-border"></div>
+
+            <!-- Dress Style Filter -->
+            <div class="filter-option">
+                <button class="btn sidebar-title" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4">
+                    Dress Style <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                </button>
+                <!-- Default dropend button -->
+                <div class="filter-option collapse" id="collapseExample4">
+                    <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample5"
+                        aria-expanded="false" aria-controls="collapseExample5">
+                        Casual <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Default dropdown element-->
+                    <div class="collapse" id="collapseExample5">Action</div>
+                    <div class="collapse" id="collapseExample5">Action2</div>
+                    <div class="collapse" id="collapseExample5">Action3</div>
+                </div>
+                <div class="filter-option collapse" id="collapseExample4">
+                    <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample10"
+                        aria-expanded="false" aria-controls="collapseExample10">
+                        Formal <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Default dropdown element-->
+                    <div class="collapse" id="collapseExample10">Action</div>
+                    <div class="collapse" id="collapseExample10">Action2</div>
+                    <div class="collapse" id="collapseExample10">Action3</div>
+                </div>
+                <div class="filter-option collapse" id="collapseExample4">
+                    <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample11"
+                        aria-expanded="false" aria-controls="collapseExample11">
+                        Party <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Default dropdown element-->
+                    <div class="collapse" id="collapseExample11">Action</div>
+                    <div class="collapse" id="collapseExample11">Action2</div>
+                    <div class="collapse" id="collapseExample11">Action3</div>
+                </div>
+                <div class="filter-option collapse" id="collapseExample4">
+                    <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample12"
+                        aria-expanded="false" aria-controls="collapseExample12">
+                        Gym <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0.221355 5.22061L5.22135 0.220609C5.29103 0.150689 5.37383 0.0952116 5.46499 0.0573578C5.55615 0.0195036 5.65389 1.72007e-05 5.7526 1.71921e-05C5.85132 1.71835e-05 5.94906 0.0195036 6.04022 0.0573578C6.13138 0.0952115 6.21418 0.150689 6.28385 0.220609L11.2839 5.22061C11.4248 5.3615 11.5039 5.5526 11.5039 5.75186C11.5039 5.95112 11.4248 6.14221 11.2839 6.28311C11.143 6.424 10.9519 6.50316 10.7526 6.50316C10.5533 6.50316 10.3623 6.424 10.2214 6.28311L5.75198 1.81373L1.28261 6.28373C1.14171 6.42463 0.950614 6.50379 0.751356 6.50379C0.552098 6.50379 0.361002 6.42463 0.220106 6.28373C0.0792102 6.14284 5.33575e-05 5.95174 5.33401e-05 5.75248C5.33227e-05 5.55323 0.0792102 5.36213 0.220106 5.22123L0.221355 5.22061Z"
+                                    fill="black" />
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Default dropdown element-->
+                    <div class="collapse" id="collapseExample12">Action</div>
+                    <div class="collapse" id="collapseExample12">Action2</div>
+                    <div class="collapse" id="collapseExample12">Action3</div>
+                </div>
+            </div>
+
+            <button class="apply-filter-btn py-3">Apply Filter</button>
+            </difv>
         </div>
     </div>
 
-    <script>
-        // Dữ liệu sản phẩm mẫu
-        const products = [];
-        for (let i = 1; i <= 90; i++) {
-            products.push({
-                id: i,
-                name: `Sản phẩm ${i}`,
-                price: `${(i * 10000).toLocaleString('vi-VN')}đ`,
-                description: `Mô tả cho sản phẩm ${i}`
-            });
-        }
 
-        // Cấu hình phân trang
-        const config = {
-            productsPerPage: 9,      // 9 sản phẩm mỗi trang
-            currentPage: 1,          // Trang hiện tại
-            totalPages: 0,           // Tổng số trang (sẽ được tính toán)
-            maxVisiblePages: 5       // Số trang tối đa hiển thị trong phân trang
-        };
 
-        // Khởi tạo ứng dụng
-        function init() {
-            calculateTotalPages();
-            renderProducts();
-            renderPagination();
-        }
 
-        // Tính tổng số trang
-        function calculateTotalPages() {
-            config.totalPages = Math.ceil(products.length / config.productsPerPage);
-        }
-
-        // Hiển thị sản phẩm
-        function renderProducts() {
-            const productsGrid = document.getElementById('productsGrid');
-            productsGrid.innerHTML = '';
-
-            // Tính chỉ số bắt đầu và kết thúc
-            const startIndex = (config.currentPage - 1) * config.productsPerPage;
-            const endIndex = Math.min(startIndex + config.productsPerPage, products.length);
-
-            // Hiển thị sản phẩm cho trang hiện tại
-            for (let i = startIndex; i < endIndex; i++) {
-                const product = products[i];
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-
-                productCard.innerHTML = `
-                    <div class="product-image">
-                        Hình ảnh sản phẩm ${product.id}
-                    </div>
-                    <div class="product-name">${product.name}</div>
-                    <div class="product-price">${product.price}</div>
-                    <div class="product-description">${product.description}</div>
-                `;
-
-                productsGrid.appendChild(productCard);
-            }
-        }
-
-        // Hiển thị phân trang
-        function renderPagination() {
-            const pagination = document.getElementById('pagination');
-            pagination.innerHTML = '';
-
-            // Nút Previous
-            const prevButton = createPageButton('←', config.currentPage > 1, () => {
-                if (config.currentPage > 1) {
-                    config.currentPage--;
-                    renderProducts();
-                    renderPagination();
-                }
-            });
-            pagination.appendChild(prevButton);
-
-            // Tính toán phạm vi trang hiển thị
-            let startPage = Math.max(1, config.currentPage - Math.floor(config.maxVisiblePages / 2));
-            let endPage = Math.min(config.totalPages, startPage + config.maxVisiblePages - 1);
-
-            // Điều chỉnh nếu chúng ta ở gần đầu hoặc cuối
-            if (endPage - startPage + 1 < config.maxVisiblePages) {
-                startPage = Math.max(1, endPage - config.maxVisiblePages + 1);
-            }
-
-            // Nút trang đầu tiên (nếu cần)
-            if (startPage > 1) {
-                const firstButton = createPageButton('1', true, () => goToPage(1));
-                pagination.appendChild(firstButton);
-
-                // Dấu "..." nếu cần
-                if (startPage > 2) {
-                    const ellipsis = document.createElement('span');
-                    ellipsis.textContent = '...';
-                    ellipsis.style.padding = '8px 12px';
-                    pagination.appendChild(ellipsis);
-                }
-            }
-
-            // Các nút trang
-            for (let i = startPage; i <= endPage; i++) {
-                const pageButton = createPageButton(
-                    i.toString(),
-                    true,
-                    () => goToPage(i)
-                );
-                if (i === config.currentPage) {
-                    pageButton.classList.add('active');
-                }
-                pagination.appendChild(pageButton);
-            }
-
-            // Nút trang cuối cùng (nếu cần)
-            if (endPage < config.totalPages) {
-                // Dấu "..." nếu cần
-                if (endPage < config.totalPages - 1) {
-                    const ellipsis = document.createElement('span');
-                    ellipsis.textContent = '...';
-                    ellipsis.style.padding = '8px 12px';
-                    pagination.appendChild(ellipsis);
-                }
-
-                const lastButton = createPageButton(
-                    config.totalPages.toString(),
-                    true,
-                    () => goToPage(config.totalPages)
-                );
-                pagination.appendChild(lastButton);
-            }
-
-            // Nút Next
-            const nextButton = createPageButton('→', config.currentPage < config.totalPages, () => {
-                if (config.currentPage < config.totalPages) {
-                    config.currentPage++;
-                    renderProducts();
-                    renderPagination();
-                }
-            });
-            pagination.appendChild(nextButton);
-
-            // Thông tin trang
-            const pageInfo = document.createElement('div');
-            pageInfo.className = 'page-info';
-            pageInfo.textContent = `Trang ${config.currentPage} / ${config.totalPages} - ${products.length} sản phẩm`;
-            pagination.appendChild(pageInfo);
-        }
-
-        // Tạo nút trang
-        function createPageButton(text, enabled, onClick) {
-            const button = document.createElement('button');
-            button.className = 'page-btn';
-            button.textContent = text;
-            button.disabled = !enabled;
-            if (enabled) {
-                button.addEventListener('click', onClick);
-            }
-            return button;
-        }
-
-        // Điều hướng đến trang cụ thể
-        function goToPage(page) {
-            config.currentPage = page;
-            renderProducts();
-            renderPagination();
-
-            // Cuộn lên đầu trang
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Khởi chạy ứng dụng khi trang tải xong
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="./asset/script.js"></script>
 </body>
 
 </html>
