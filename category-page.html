@@ -96,7 +96,7 @@
             height: 6px;
             background: none;
             pointer-events: none;
-            -webkit-appearance: none;
+            /* -webkit-appearance: none; */
             top: 0;
         }
 
@@ -147,11 +147,7 @@
 
         .color-option.active {
             border: 2px solid;
-        }
-
-        .color-option.active {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px white, 0 0 0 4px var(--primary-color);
+            transform: scale(1.1);
         }
 
         /* Size css */
@@ -200,17 +196,17 @@
 
 
         /* New css popup */
-        .collapse {
+        .sidebar-container_popup.collapse {
             border-radius: 20px;
             padding: 5px;
             cursor: pointer;
         }
 
-        .collapse:hover {
+        .sidebar-container_popup .collapse:hover {
             background-color: rgba(240, 240, 240, 1);
         }
 
-        .filter-option.collapse .collapse:hover {
+        .sidebar-container_popup .filter-option.collapse .collapse:hover {
             background-color: #000;
             color: #fff;
         }
@@ -219,7 +215,7 @@
             transform: rotate(0) !important;
         }
 
-        .filter-option.collapse:hover svg {
+        .sidebar-container_popup .filter-option.collapse:hover svg {
             transform: rotate(180deg) !important;
         }
 
@@ -1068,15 +1064,6 @@
                             <div class="color-option" style="background: #000000; border-color: #000;"
                                 onclick="selectColor(this)" title="Black">
                             </div>
-                            <div class="color-option" style="background: #3B82F6; border-color: #043d9a;"
-                                onclick="selectColor(this)" title="Blue">
-                            </div>
-                            <div class="color-option" style="background: #0EA5E9; border-color: rgb(22, 87, 118)9;"
-                                onclick="selectColor(this)" title="Cyan"></div>
-                            <div class="color-option" style="background: #8B5CF6; border-color: #34089d;"
-                                onclick="selectColor(this)" title="Purple"></div>
-                            <div class="color-option" style="background: #EC4899; border-color: #a20855;" title="Pink">
-                            </div>
                         </div>
                     </div>
                     <script>
@@ -1151,8 +1138,8 @@
                     </div>
                     <script>
                         function selectSize(element) {
-                            document.querySelectorAll('.size-option p').forEach(color => {
-                                color.classList.remove('active');
+                            document.querySelectorAll('.size-option p').forEach(size => {
+                                size.classList.remove('active');
                             });
                             element.classList.add('active');
                         }
