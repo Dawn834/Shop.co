@@ -51,6 +51,13 @@ html {
     font-family: var(--font-shatoshi);
 }
 
+@media (max-width:580px) {
+    .container{
+        padding: 0 20px !important;
+    }
+    
+}
+
 /* Main CSS */
 /* Top header */
 .top-header {
@@ -103,6 +110,7 @@ html {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1) ;
+    padding: 15px 0;
 }
 
 .main-header .logo {
