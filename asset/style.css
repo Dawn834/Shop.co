@@ -64,7 +64,6 @@ html {
     background-color: #000000;
     position: relative;
     display: flex;
-    max-width: 1440px;
     height: 38px;
     justify-content: center;
     align-items: center;
@@ -888,13 +887,8 @@ footer .payment-icon {
 }
 
 .product-container {
-    width: 100%;
-    padding: 100px 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    overflow: auto;
-    white-space: nowrap;
+    padding: 10px 0;
+    margin: 40px auto;
     font-family: var(--font-shatoshi);
     color: rgba(0, 0, 0, 1);
 }
@@ -911,7 +905,6 @@ footer .payment-icon {
 }
 
 .product-item {
-    width: 100%;
     height: 300px;
     background-color: rgba(240, 238, 237, 1);
     border-radius: 20px;
