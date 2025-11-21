@@ -52,10 +52,10 @@ html {
 }
 
 @media (max-width:580px) {
-    .container{
+    .container {
         padding: 0 20px !important;
     }
-    
+
 }
 
 /* Main CSS */
@@ -108,7 +108,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1) ;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding: 15px 0;
 }
 
@@ -141,7 +141,8 @@ header .nav a {
     font-family: var(--font-shatoshi);
     font-size: 16px;
 }
-header .nav{
+
+header .nav {
     gap: 10px;
 }
 
@@ -265,7 +266,7 @@ header .mobile-menu-popup {
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    
+
 }
 
 header .mobile-menu-popup.active {
@@ -287,10 +288,8 @@ header .mobile-menu-header h2 {
     font-weight: 600;
     font-family: var(--font-shatoshi);
 }
-header .mobile-menu-links svg{
-    
-    
-}
+
+header .mobile-menu-links svg {}
 
 header .close-btn {
     background: none;
@@ -515,10 +514,10 @@ footer .subscribe-btn:hover {
 }
 
 @media (max-width:990px) {
-    footer{
+    footer {
         padding-top: 200px;
     }
-    
+
 }
 
 @media (max-width:640px) {
@@ -526,7 +525,8 @@ footer .subscribe-btn:hover {
         padding: 200px 50px;
         margin-top: 250px;
     }
-    footer .newsletter-section{
+
+    footer .newsletter-section {
         transform: translate(-50%);
         margin: 0 auto;
     }
@@ -882,7 +882,7 @@ footer .payment-icon {
 /* Product CSS */
 
 .title-section {
-    padding-top: 100px;
+    margin-top: 100px;
     text-align: center;
 }
 
@@ -977,11 +977,69 @@ footer .payment-icon {
     color: #fff;
 }
 
-@media (max-width:1440px) {
+/* Khi màn hình <= 1200px */
+@media (max-width: 1200px) {
     .product-container {
-        padding: 100px 20px;
-        gap: 20px;
+        overflow-x: auto;
+        /* Cho phép scroll ngang */
+        overflow-y: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: #ccc transparent;
     }
+
+    .product-container::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .product-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .product-container::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+
+    .product-container .row {
+        flex-wrap: nowrap;
+        /* Quan trọng: ngăn wrap */
+        width: max-content;
+        /* Cho phép row rộng hơn container */
+        margin: 0;
+        /* Reset margin mặc định của Bootstrap */
+    }
+
+    .product-container .product-card.col {
+        flex: 0 0 auto;
+        /* Reset flex-grow của Bootstrap */
+        width: 280px;
+        /* Hoặc kích thước cố định bạn muốn */
+        max-width: none;
+        /* Bỏ max-width mặc định */
+        margin-right: 20px;
+        /* Khoảng cách giữa các card */
+    }
+}
+
+/* Trên màn hình lớn > 1200px - giữ nguyên Bootstrap */
+@media (min-width: 1201px) {
+    .product-container {
+        overflow: visible;
+    }
+
+    .product-container .row {
+        flex-wrap: wrap;
+        /* Giữ nguyên behavior của Bootstrap */
+    }
+
+    .product-container .product-card.col {
+        width: auto;
+        /* Để Bootstrap tự điều chỉnh */
+        margin-right: 0;
+    }
+}
+
+@media (max-width:1440px) {
 
     .product-container .name-item {
         font-size: 16px;
@@ -995,11 +1053,12 @@ footer .payment-icon {
         font-size: 20px;
     }
 }
+
 @media (max-width:600px) {
-    .show-all-btn{
+    .show-all-btn {
         width: 90%;
     }
-    
+
 }
 
 .dress-style {
@@ -1166,9 +1225,9 @@ footer .payment-icon {
     font-size: 16px;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.6);
-} 
-    
-.feedback-container{
+}
+
+.feedback-container {
     position: relative;
 }
 
@@ -1180,9 +1239,9 @@ footer .payment-icon {
     left: 0;
     width: 100px;
     height: 50%;
-    background: linear-gradient(90deg, 
-        rgba(255,255,255,1) 0%, 
-        rgba(255,255,255,0) 100%);
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0) 100%);
     z-index: 2;
     pointer-events: none;
 }
@@ -1195,27 +1254,31 @@ footer .payment-icon {
     right: 0;
     width: 100px;
     height: 50%;
-    background: linear-gradient(270deg, 
-        rgba(255,255,255,1) 0%, 
-        rgba(255,255,255,0) 100%);
+    background: linear-gradient(270deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0) 100%);
     z-index: 2;
     pointer-events: none;
 }
 
 @media (max-width:1000px) {
-    .feedback-container::after, .feedback-container::before{
+
+    .feedback-container::after,
+    .feedback-container::before {
         all: unset;
     }
 }
 
 @media (max-width:800px) {
-    .feedback-header h2{
+    .feedback-header h2 {
         font-size: 32px;
     }
-    .feedback-flex{
+
+    .feedback-flex {
         padding: 0 20px;
     }
-    .feedback-card{
+
+    .feedback-card {
         min-width: 95%;
     }
 }
