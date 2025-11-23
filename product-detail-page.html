@@ -5,504 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product detail page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css?components=grid"
+        rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
     <link rel="stylesheet" href="./asset/reset.css">
     <link rel="stylesheet" href="./asset/style.css">
-    <style>
-        .breadcrumb {
-            background-color: transparent;
-            padding: 1rem 0;
-            font-size: 0.9rem;
-        }
-
-        .breadcrumb-item+.breadcrumb-item::before {
-            content: ">";
-            color: #6c757d;
-        }
-
-        .thumbnail-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .thumbnail {
-            width: 100%;
-            overflow: hidden;
-            border-radius: 20px;
-            cursor: pointer;
-            background: rgba(240, 238, 237, 1);
-        }
-
-        .thumbnail:hover {
-            border-color: #dee2e6;
-        }
-
-        .thumbnail.active {
-            border: 2px #000 solid;
-        }
-
-        .thumbnail img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .main-image {
-            background: #e9ecef;
-            overflow: hidden;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 500px;
-        }
-
-        .main-image img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .product-title {
-            text-transform: uppercase;
-            font-size: 40px;
-        }
-
-        .rating {
-            color: #ffc107;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .rating span {
-            color: #6c757d;
-            font-size: 1.1rem;
-            margin-left: 0.5rem;
-        }
-
-        .price-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .current-price {
-            font-size: 32px;
-            font-weight: 700;
-        }
-
-        .original-price {
-            font-size: 32px;
-            font-weight: 700;
-            color: #999;
-            text-decoration: line-through;
-        }
-
-        .discount-badge {
-            background: #ffe0e0;
-            color: #ff3333;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            font-weight: 500;
-            font-size: 16px;
-        }
-
-        .color-option {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-
-        .color-option.active {
-            border-color: #000;
-        }
-
-        .color-option.active::after {
-            content: "✓";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .color-olive {
-            background-color: #5a5a3d;
-        }
-
-        .color-teal {
-            background-color: #2f5f5f;
-        }
-
-        .color-navy {
-            background-color: #2d3e50;
-        }
-
-        .size-option {
-            padding: 0.75rem 2rem;
-            border: 2px solid #e9ecef;
-            border-radius: 30px;
-            background: #f8f9fa;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 400;
-            font-size: 16px;
-        }
-
-        .size-option:hover {
-            border-color: #dee2e6;
-        }
-
-        .size-option.active {
-            background: #000;
-            color: #fff;
-            border-color: #000;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: #f8f9fa;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            width: fit-content;
-        }
-
-        .quantity-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .quantity-value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .add-to-cart-btn {
-            background: #000;
-            color: #fff;
-            border: none;
-            padding: 1rem 3rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            width: 100%;
-            transition: all 0.3s;
-        }
-
-        .add-to-cart-btn:hover {
-            background: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .section-title {
-            font-weight: 400;
-            margin-bottom: 1rem;
-            font-size: 16px;
-            color: rgba(0, 0, 0, 0.6);
-        }
-
-        .section-item {
-            padding: 1.5rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .product-title {
-                font-size: 1.8rem;
-            }
-
-            .thumbnail-list {
-                flex-direction: row;
-                overflow-x: auto;
-                gap: 12px;
-            }
-
-            .thumbnail {
-                min-width: 100px;
-                max-height: 200px;
-            }
-
-            .thumbnail img {
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-
-        .nav-tabs {
-            border-bottom: 2px solid #e9ecef;
-            justify-content: center;
-            margin-bottom: 3rem;
-        }
-
-        .nav-tabs .nav-link {
-            border: none;
-            color: #999;
-            font-size: 20px;
-            font-weight: 400;
-            padding: 1rem 4em;
-            margin: 0 1rem;
-            position: relative;
-        }
-
-        .nav-tabs .nav-link:hover {
-            border: none;
-            color: #333;
-        }
-
-        .nav-tabs .nav-link.active {
-            color: #000;
-            font-weight: 500;
-            background: transparent;
-            border: none;
-        }
-
-        .nav-tabs .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: #000;
-        }
-
-        .reviews-header {
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .reviews-title {
-            font-size: 24px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .reviews-count {
-            color: #666;
-            font-weight: 400;
-            font-size: 16px;
-        }
-
-        .reviews-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .filter-btn {
-            background: rgba(240, 240, 240, 1);
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .filter-btn:hover {
-            background: #e9ecef;
-        }
-
-        .sort-dropdown {
-            background: rgba(240, 240, 240, 1);
-            border: none;
-            padding: 0.15rem 0.5rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-
-        /* Loại bỏ active state cho dropdown của bạn */
-        .sort-dropdown .dropdown-toggle:focus,
-        .sort-dropdown .dropdown-toggle:active,
-        .sort-dropdown .dropdown-toggle.show {
-            box-shadow: none !important;
-            outline: none !important;
-            background-color: transparent !important;
-            border-color: transparent !important;
-        }
-
-        .dropdown-toggle::after {
-            display: none !important;
-        }
-
-        .dropdown-toggle svg {
-            display: inline-block;
-            margin-left: 20px;
-        }
-
-        .dropdown-toggle {
-            display: flex;
-            align-items: center;
-        }
-
-
-        .write-review-btn {
-            background: #000;
-            color: #fff;
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .write-review-btn:hover {
-            background: #333;
-            transform: translateY(-2px);
-        }
-
-        .review-card {
-            height: 100%;
-            background: #fff;
-            border: 1px solid #e9ecef;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            transition: all 0.3s;
-            flex-grow: 1;
-        }
-
-        .review-card:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .review-stars {
-            display: flex;
-            color: #ffc107;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .review-stars i {
-            margin-right: 0.2rem;
-        }
-
-        .reviewer-info {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .reviewer-name {
-            font-weight: 700;
-            font-size: 20px;
-        }
-
-        /* .verified-badge {
-            color: #00c853;
-            font-size: 1rem;
-        } */
-
-        .review-text {
-            color: rgba(0, 0, 0, 0.6);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            font-size: 16px;
-            font-weight: 400;
-        }
-
-        .review-date {
-            color: #999;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .more-options {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: none;
-            border: none;
-            color: #999;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .more-options:hover {
-            color: #333;
-        }
-
-        .load-more-btn {
-            background: #fff;
-            border: 2px solid #e9ecef;
-            padding: 1rem 3rem;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: block;
-            margin: 3rem auto;
-        }
-
-        .load-more-btn:hover {
-            border-color: #000;
-            background: #000;
-            color: #fff;
-        }
-
-        @media (max-width: 768px) {
-            .nav-tabs .nav-link {
-                padding: 1rem 1.5rem;
-                margin: 0 0.5rem;
-                font-size: 1rem;
-            }
-
-            .dropdown {
-                display: none;
-            }
-
-            .review-card {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./asset/product-detail-page.css">
 </head>
 
 <body>
     <header>
-        <div class="top-header" id="targetElement">
-            <p>
+        <div class="container-fluid bg-dark" id="targetElement">
+            <div class=" top-header container">
+                <p>
                 Sign up and get 20% off to your first order. <span>Sign Up Now</span>
             </p>
             <svg class="close-svg" onclick="closeElement()" width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -511,9 +26,10 @@
                     d="M16.2882 14.9617C16.4644 15.1378 16.5633 15.3767 16.5633 15.6258C16.5633 15.8749 16.4644 16.1137 16.2882 16.2898C16.1121 16.466 15.8733 16.5649 15.6242 16.5649C15.3751 16.5649 15.1362 16.466 14.9601 16.2898L9.99997 11.3281L5.03825 16.2883C4.86213 16.4644 4.62326 16.5633 4.37418 16.5633C4.12511 16.5633 3.88624 16.4644 3.71012 16.2883C3.534 16.1122 3.43506 15.8733 3.43506 15.6242C3.43506 15.3751 3.534 15.1363 3.71012 14.9602L8.67184 10L3.71168 5.03828C3.53556 4.86216 3.43662 4.62329 3.43662 4.37422C3.43662 4.12515 3.53556 3.88628 3.71168 3.71016C3.8878 3.53404 4.12668 3.43509 4.37575 3.43509C4.62482 3.43509 4.86369 3.53404 5.03981 3.71016L9.99997 8.67188L14.9617 3.70938C15.1378 3.53326 15.3767 3.43431 15.6257 3.43431C15.8748 3.43431 16.1137 3.53326 16.2898 3.70938C16.4659 3.8855 16.5649 4.12437 16.5649 4.37344C16.5649 4.62251 16.4659 4.86138 16.2898 5.0375L11.3281 10L16.2882 14.9617Z"
                     fill="white" />
             </svg>
+            </div>
         </div>
 
-        <div class="main-header">
+        <div class="main-header container">
             <!-- Mobile Menu Button -->
             <div>
                 <svg class="mobile-menu-btn" id="mobileMenuBtn" width="20" height="20" viewBox="0 0 20 16" fill="none"
@@ -541,7 +57,7 @@
                     </div>
 
                     <div class="mobile-menu-links">
-                        <a href="#home" class="mobile-menu-link">
+                        <a href="#home" class="mobile-menu-link popup">
                             Shop <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -549,20 +65,25 @@
                                         fill="black" />
                                 </svg>
                             </span>
+                            <div class="dropdown-mobile">
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                            </div>
                         </a>
-                        <a href="#about" class="mobile-menu-link">
+                        <a href="#top-selling" class="mobile-menu-link">
                             On Sale
                         </a>
-                        <a href="#services" class="mobile-menu-link">
-                            New Arrivals
+                        <a href="#new-arrivals" class="mobile-menu-link">
+                            New Arrival
                         </a>
-                        <a href="#services" class="mobile-menu-link">
+                        <a href="#brands" class="mobile-menu-link">
                             Brands
                         </a>
 
                     </div>
                 </div>
-                <a class="logo" href="#">SHOPCO</a>
+                <a class="logo" href="./homepage.html">SHOPCO</a>
             </div>
 
             <div class="nav">
@@ -573,16 +94,17 @@
                                     d="M11.5306 1.53063L6.53063 6.53063C6.46095 6.60055 6.37816 6.65602 6.28699 6.69388C6.19583 6.73173 6.09809 6.75122 5.99938 6.75122C5.90067 6.75122 5.80293 6.73173 5.71176 6.69388C5.6206 6.65602 5.53781 6.60055 5.46813 6.53063L0.468128 1.53063C0.327232 1.38973 0.248077 1.19864 0.248077 0.999378C0.248077 0.80012 0.327232 0.609024 0.468128 0.468128C0.609025 0.327231 0.800121 0.248077 0.999378 0.248077C1.19864 0.248077 1.38973 0.327231 1.53063 0.468128L6 4.9375L10.4694 0.467503C10.6103 0.326607 10.8014 0.247452 11.0006 0.247452C11.1999 0.247452 11.391 0.326607 11.5319 0.467503C11.6728 0.608399 11.7519 0.799496 11.7519 0.998753C11.7519 1.19801 11.6728 1.38911 11.5319 1.53L11.5306 1.53063Z"
                                     fill="black" />
                             </svg>
-                        </span></button>
+                        </span>
+                    </button>
                     <div id="myDropdown" class="dropdown-content">
                         <a href="#">Link 1</a>
                         <a href="#">Link 2</a>
                         <a href="#">Link 3</a>
                     </div>
                 </div>
-                <a href="#">On Sale</a>
-                <a href="#">New Arrivals</a>
-                <a href="#">Brands</a>
+                <a href="#top-selling">On Sale</a>
+                <a href="#new-arrivlas">New Arrivals</a>
+                <a href="#brands">Brands</a>
             </div>
             <div class="search-box">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -600,7 +122,7 @@
                             fill="black" />
                     </svg>
                 </a>
-                <a href="#"><svg width="23" height="22" viewBox="0 0 23 22" fill="none"
+                <a href="./Cart.html"><svg width="23" height="22" viewBox="0 0 23 22" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M9.375 19.25C9.375 19.6208 9.26503 19.9834 9.059 20.2917C8.85298 20.6 8.56014 20.8404 8.21753 20.9823C7.87492 21.1242 7.49792 21.1613 7.1342 21.089C6.77049 21.0166 6.4364 20.838 6.17417 20.5758C5.91195 20.3136 5.73337 19.9795 5.66103 19.6158C5.58868 19.2521 5.62581 18.8751 5.76773 18.5325C5.90964 18.1899 6.14996 17.897 6.45831 17.691C6.76665 17.485 7.12916 17.375 7.5 17.375C7.99728 17.375 8.47419 17.5725 8.82582 17.9242C9.17745 18.2758 9.375 18.7527 9.375 19.25ZM17.25 17.375C16.8792 17.375 16.5166 17.485 16.2083 17.691C15.9 17.897 15.6596 18.1899 15.5177 18.5325C15.3758 18.8751 15.3387 19.2521 15.411 19.6158C15.4834 19.9795 15.662 20.3136 15.9242 20.5758C16.1864 20.838 16.5205 21.0166 16.8842 21.089C17.2479 21.1613 17.6249 21.1242 17.9675 20.9823C18.3101 20.8404 18.603 20.6 18.809 20.2917C19.015 19.9834 19.125 19.6208 19.125 19.25C19.125 18.7527 18.9275 18.2758 18.5758 17.9242C18.2242 17.5725 17.7473 17.375 17.25 17.375ZM22.0753 6.08094L19.5169 14.3966C19.3535 14.9343 19.0211 15.4051 18.569 15.739C18.1169 16.0729 17.5692 16.2521 17.0072 16.25H7.77469C7.2046 16.2482 6.65046 16.0616 6.1953 15.7183C5.74015 15.3751 5.40848 14.8936 5.25 14.3459L2.04469 3.125H1.125C0.826631 3.125 0.540483 3.00647 0.329505 2.7955C0.118526 2.58452 0 2.29837 0 2C0 1.70163 0.118526 1.41548 0.329505 1.2045C0.540483 0.993526 0.826631 0.875 1.125 0.875H2.32687C2.73407 0.876258 3.12988 1.00951 3.45493 1.25478C3.77998 1.50004 4.01674 1.84409 4.12969 2.23531L4.81312 4.625H21C21.1761 4.62499 21.3497 4.6663 21.5069 4.74561C21.664 4.82492 21.8004 4.94001 21.905 5.08164C22.0096 5.22326 22.0795 5.38746 22.1091 5.56102C22.1387 5.73458 22.1271 5.91266 22.0753 6.08094ZM19.4766 6.875H5.45531L7.41375 13.7281C7.43617 13.8065 7.48354 13.8755 7.54867 13.9245C7.6138 13.9736 7.69315 14.0001 7.77469 14H17.0072C17.0875 14.0002 17.1656 13.9746 17.2303 13.927C17.2949 13.8794 17.3426 13.8123 17.3662 13.7356L19.4766 6.875Z"
@@ -622,17 +144,39 @@
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Home</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Shop</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Men</a></li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="text-decoration-none text-muted">Home </a>
+                    <span><svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1.28318 0.221294L6.28318 5.22129C6.3531 5.29097 6.40857 5.37377 6.44643 5.46493C6.48428 5.55609 6.50377 5.65383 6.50377 5.75254C6.50377 5.85126 6.48428 5.94899 6.44643 6.04016C6.40857 6.13132 6.3531 6.21412 6.28318 6.28379L1.28318 11.2838C1.14228 11.4247 0.951183 11.5038 0.751926 11.5038C0.552669 11.5038 0.361572 11.4247 0.220676 11.2838C0.0797797 11.1429 0.000625142 10.9518 0.000625142 10.7525C0.000625143 10.5533 0.0797797 10.3622 0.220676 10.2213L4.69005 5.75192L0.220051 1.28255C0.0791551 1.14165 1.25847e-07 0.950553 1.28223e-07 0.751295C1.30599e-07 0.552037 0.0791552 0.360941 0.220051 0.220045C0.360948 0.0791493 0.552044 -7.62281e-06 0.751301 -7.62044e-06C0.950559 -7.61806e-06 1.14166 0.0791493 1.28255 0.220045L1.28318 0.221294Z"
+                                fill="black" fill-opacity="0.6" />
+                        </svg>
+                    </span>
+                </li>
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Shop</a>
+                    <span><svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1.28318 0.221294L6.28318 5.22129C6.3531 5.29097 6.40857 5.37377 6.44643 5.46493C6.48428 5.55609 6.50377 5.65383 6.50377 5.75254C6.50377 5.85126 6.48428 5.94899 6.44643 6.04016C6.40857 6.13132 6.3531 6.21412 6.28318 6.28379L1.28318 11.2838C1.14228 11.4247 0.951183 11.5038 0.751926 11.5038C0.552669 11.5038 0.361572 11.4247 0.220676 11.2838C0.0797797 11.1429 0.000625142 10.9518 0.000625142 10.7525C0.000625143 10.5533 0.0797797 10.3622 0.220676 10.2213L4.69005 5.75192L0.220051 1.28255C0.0791551 1.14165 1.25847e-07 0.950553 1.28223e-07 0.751295C1.30599e-07 0.552037 0.0791552 0.360941 0.220051 0.220045C0.360948 0.0791493 0.552044 -7.62281e-06 0.751301 -7.62044e-06C0.950559 -7.61806e-06 1.14166 0.0791493 1.28255 0.220045L1.28318 0.221294Z"
+                                fill="black" fill-opacity="0.6" />
+                        </svg>
+                    </span>
+                </li>
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Men</a>
+                    <span><svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1.28318 0.221294L6.28318 5.22129C6.3531 5.29097 6.40857 5.37377 6.44643 5.46493C6.48428 5.55609 6.50377 5.65383 6.50377 5.75254C6.50377 5.85126 6.48428 5.94899 6.44643 6.04016C6.40857 6.13132 6.3531 6.21412 6.28318 6.28379L1.28318 11.2838C1.14228 11.4247 0.951183 11.5038 0.751926 11.5038C0.552669 11.5038 0.361572 11.4247 0.220676 11.2838C0.0797797 11.1429 0.000625142 10.9518 0.000625142 10.7525C0.000625143 10.5533 0.0797797 10.3622 0.220676 10.2213L4.69005 5.75192L0.220051 1.28255C0.0791551 1.14165 1.25847e-07 0.950553 1.28223e-07 0.751295C1.30599e-07 0.552037 0.0791552 0.360941 0.220051 0.220045C0.360948 0.0791493 0.552044 -7.62281e-06 0.751301 -7.62044e-06C0.950559 -7.61806e-06 1.14166 0.0791493 1.28255 0.220045L1.28318 0.221294Z"
+                                fill="black" fill-opacity="0.6" />
+                        </svg>
+                    </span>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">T-shirts</li>
             </ol>
         </nav>
 
         <!-- Product Section -->
-        <div class="custom-order-fix row g-4">
+        <div class="custom-order-fix row g-4 ">
             <!-- Thumbnails -->
-            <div class="col-lg-1 col-md-2 order-2 order-md-1">
+            <div class="col-xl-2 order-2 order-xl-1">
                 <div class="thumbnail-list">
                     <div class="thumbnail active" onclick="changeImage(0)">
                         <img src="./asset/img/product-detail-page/21d6bcec533545a2b1e10e90b8059bc1bc97eab5.png"
@@ -650,7 +194,7 @@
             </div>
 
             <!-- Main Image -->
-            <div class="col-lg-5 col-md-6 order-1 order-md-2">
+            <div class="col-xl-4 order-1 order-xl-2">
                 <div class="main-image">
                     <img id="mainImage"
                         src="./asset/img/product-detail-page/21d6bcec533545a2b1e10e90b8059bc1bc97eab5.png"
@@ -659,7 +203,7 @@
             </div>
 
             <!-- Product Details -->
-            <div class="col-lg-6 col-md-4 order-3">
+            <div class="col-xl-6 order-3" style="height: 630px;">
                 <h1 class="product-title">One Life Graphic T shirt</h1>
 
                 <div class="rating">
@@ -706,9 +250,31 @@
                 <div class="mb-4 section-item border-bottom">
                     <div class="section-title">Select Colors</div>
                     <div class="d-flex gap-3">
-                        <div class="color-option color-olive active" onclick="selectColor(this)"></div>
-                        <div class="color-option color-teal" onclick="selectColor(this)"></div>
-                        <div class="color-option color-navy" onclick="selectColor(this)"></div>
+                        <div class="color-option color-olive active" onclick="selectColor(this)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.5306 5.03063L6.5306 13.0306C6.46092 13.1005 6.37813 13.156 6.28696 13.1939C6.1958 13.2317 6.09806 13.2512 5.99935 13.2512C5.90064 13.2512 5.8029 13.2317 5.71173 13.1939C5.62057 13.156 5.53778 13.1005 5.4681 13.0306L1.9681 9.53063C1.89833 9.46087 1.84299 9.37804 1.80524 9.28689C1.76748 9.19574 1.74805 9.09804 1.74805 8.99938C1.74805 8.90072 1.76748 8.80302 1.80524 8.71187C1.84299 8.62072 1.89833 8.53789 1.9681 8.46813C2.03786 8.39837 2.12069 8.34302 2.21184 8.30527C2.30299 8.26751 2.40069 8.24808 2.49935 8.24808C2.59801 8.24808 2.69571 8.26751 2.78686 8.30527C2.87801 8.34302 2.96083 8.39837 3.0306 8.46813L5.99997 11.4375L13.4693 3.96938C13.6102 3.82848 13.8013 3.74933 14.0006 3.74933C14.1999 3.74933 14.391 3.82848 14.5318 3.96938C14.6727 4.11028 14.7519 4.30137 14.7519 4.50063C14.7519 4.69989 14.6727 4.89098 14.5318 5.03188L14.5306 5.03063Z"
+                                    fill="white" />
+                            </svg>
+
+                        </div>
+                        <div class="color-option color-teal" onclick="selectColor(this)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.5306 5.03063L6.5306 13.0306C6.46092 13.1005 6.37813 13.156 6.28696 13.1939C6.1958 13.2317 6.09806 13.2512 5.99935 13.2512C5.90064 13.2512 5.8029 13.2317 5.71173 13.1939C5.62057 13.156 5.53778 13.1005 5.4681 13.0306L1.9681 9.53063C1.89833 9.46087 1.84299 9.37804 1.80524 9.28689C1.76748 9.19574 1.74805 9.09804 1.74805 8.99938C1.74805 8.90072 1.76748 8.80302 1.80524 8.71187C1.84299 8.62072 1.89833 8.53789 1.9681 8.46813C2.03786 8.39837 2.12069 8.34302 2.21184 8.30527C2.30299 8.26751 2.40069 8.24808 2.49935 8.24808C2.59801 8.24808 2.69571 8.26751 2.78686 8.30527C2.87801 8.34302 2.96083 8.39837 3.0306 8.46813L5.99997 11.4375L13.4693 3.96938C13.6102 3.82848 13.8013 3.74933 14.0006 3.74933C14.1999 3.74933 14.391 3.82848 14.5318 3.96938C14.6727 4.11028 14.7519 4.30137 14.7519 4.50063C14.7519 4.69989 14.6727 4.89098 14.5318 5.03188L14.5306 5.03063Z"
+                                    fill="white" />
+                            </svg>
+                        </div>
+                        <div class="color-option color-navy" onclick="selectColor(this)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.5306 5.03063L6.5306 13.0306C6.46092 13.1005 6.37813 13.156 6.28696 13.1939C6.1958 13.2317 6.09806 13.2512 5.99935 13.2512C5.90064 13.2512 5.8029 13.2317 5.71173 13.1939C5.62057 13.156 5.53778 13.1005 5.4681 13.0306L1.9681 9.53063C1.89833 9.46087 1.84299 9.37804 1.80524 9.28689C1.76748 9.19574 1.74805 9.09804 1.74805 8.99938C1.74805 8.90072 1.76748 8.80302 1.80524 8.71187C1.84299 8.62072 1.89833 8.53789 1.9681 8.46813C2.03786 8.39837 2.12069 8.34302 2.21184 8.30527C2.30299 8.26751 2.40069 8.24808 2.49935 8.24808C2.59801 8.24808 2.69571 8.26751 2.78686 8.30527C2.87801 8.34302 2.96083 8.39837 3.0306 8.46813L5.99997 11.4375L13.4693 3.96938C13.6102 3.82848 13.8013 3.74933 14.0006 3.74933C14.1999 3.74933 14.391 3.82848 14.5318 3.96938C14.6727 4.11028 14.7519 4.30137 14.7519 4.50063C14.7519 4.69989 14.6727 4.89098 14.5318 5.03188L14.5306 5.03063Z"
+                                    fill="white" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
@@ -789,488 +355,492 @@
     <!-- Reviews section -->
     <div class="container-md py-5">
         <!-- Navigation Tabs -->
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link" type="button">Product Details</button>
+                <button class="nav-link" type="button" onclick="openCity(event, 'product-detail')">Product
+                    Details</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" type="button">Rating & Reviews</button>
+                <button class="nav-link active" type="button" onclick="openCity(event, 'rating-reviews')">Rating &
+                    Reviews</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" type="button">FAQs</button>
+                <button class="nav-link" type="button" onclick="openCity(event, 'FAQs')">FAQs</button>
             </li>
         </ul>
-
-        <!-- Reviews Section -->
-        <div class="reviews-header">
-            <p class="reviews-title">
-                All Reviews <span class="reviews-count">(451)</span>
+        <!-- Product details section-->
+        <!-- Product Details Tab -->
+        <div class="tabcontent" id="product-detail">
+            <p class="reviews-title mb-4">
+                Product Information
             </p>
-            <div class="reviews-controls">
-                <button class="filter-btn">
-                    <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.25 9V17.625C11.25 17.9234 11.1315 18.2095 10.9205 18.4205C10.7095 18.6315 10.4234 18.75 10.125 18.75C9.82663 18.75 9.54048 18.6315 9.3295 18.4205C9.11853 18.2095 9 17.9234 9 17.625V9C9 8.70163 9.11853 8.41548 9.3295 8.2045C9.54048 7.99353 9.82663 7.875 10.125 7.875C10.4234 7.875 10.7095 7.99353 10.9205 8.2045C11.1315 8.41548 11.25 8.70163 11.25 9ZM16.875 15.375C16.5766 15.375 16.2905 15.4935 16.0795 15.7045C15.8685 15.9155 15.75 16.2016 15.75 16.5V17.625C15.75 17.9234 15.8685 18.2095 16.0795 18.4205C16.2905 18.6315 16.5766 18.75 16.875 18.75C17.1734 18.75 17.4595 18.6315 17.6705 18.4205C17.8815 18.2095 18 17.9234 18 17.625V16.5C18 16.2016 17.8815 15.9155 17.6705 15.7045C17.4595 15.4935 17.1734 15.375 16.875 15.375ZM19.125 11.625H18V1.125C18 0.826631 17.8815 0.540483 17.6705 0.329505C17.4595 0.118526 17.1734 0 16.875 0C16.5766 0 16.2905 0.118526 16.0795 0.329505C15.8685 0.540483 15.75 0.826631 15.75 1.125V11.625H14.625C14.3266 11.625 14.0405 11.7435 13.8295 11.9545C13.6185 12.1655 13.5 12.4516 13.5 12.75C13.5 13.0484 13.6185 13.3345 13.8295 13.5455C14.0405 13.7565 14.3266 13.875 14.625 13.875H19.125C19.4234 13.875 19.7095 13.7565 19.9205 13.5455C20.1315 13.3345 20.25 13.0484 20.25 12.75C20.25 12.4516 20.1315 12.1655 19.9205 11.9545C19.7095 11.7435 19.4234 11.625 19.125 11.625ZM3.375 12.375C3.07663 12.375 2.79048 12.4935 2.5795 12.7045C2.36853 12.9155 2.25 13.2016 2.25 13.5V17.625C2.25 17.9234 2.36853 18.2095 2.5795 18.4205C2.79048 18.6315 3.07663 18.75 3.375 18.75C3.67337 18.75 3.95952 18.6315 4.1705 18.4205C4.38147 18.2095 4.5 17.9234 4.5 17.625V13.5C4.5 13.2016 4.38147 12.9155 4.1705 12.7045C3.95952 12.4935 3.67337 12.375 3.375 12.375ZM5.625 8.625H4.5V1.125C4.5 0.826631 4.38147 0.540483 4.1705 0.329505C3.95952 0.118526 3.67337 0 3.375 0C3.07663 0 2.79048 0.118526 2.5795 0.329505C2.36853 0.540483 2.25 0.826631 2.25 1.125V8.625H1.125C0.826631 8.625 0.540483 8.74353 0.329505 8.9545C0.118526 9.16548 0 9.45163 0 9.75C0 10.0484 0.118526 10.3345 0.329505 10.5455C0.540483 10.7565 0.826631 10.875 1.125 10.875H5.625C5.92337 10.875 6.20952 10.7565 6.4205 10.5455C6.63147 10.3345 6.75 10.0484 6.75 9.75C6.75 9.45163 6.63147 9.16548 6.4205 8.9545C6.20952 8.74353 5.92337 8.625 5.625 8.625ZM12.375 4.125H11.25V1.125C11.25 0.826631 11.1315 0.540483 10.9205 0.329505C10.7095 0.118526 10.4234 0 10.125 0C9.82663 0 9.54048 0.118526 9.3295 0.329505C9.11853 0.540483 9 0.826631 9 1.125V4.125H7.875C7.57663 4.125 7.29048 4.24353 7.0795 4.4545C6.86853 4.66548 6.75 4.95163 6.75 5.25C6.75 5.54837 6.86853 5.83452 7.0795 6.0455C7.29048 6.25647 7.57663 6.375 7.875 6.375H12.375C12.6734 6.375 12.9595 6.25647 13.1705 6.0455C13.3815 5.83452 13.5 5.54837 13.5 5.25C13.5 4.95163 13.3815 4.66548 13.1705 4.4545C12.9595 4.24353 12.6734 4.125 12.375 4.125Z"
-                            fill="black" />
-                    </svg>
+            <ul class="list-unstyled">
+                <li class="mb-2"><strong>Material:</strong> 100% Premium Cotton</li>
+                <li class="mb-2"><strong>Fit:</strong> Regular Fit</li>
+                <li class="mb-2"><strong>Care Instructions:</strong> Machine wash cold, tumble dry low</li>
+                <li class="mb-2"><strong>Style:</strong> Casual Graphic Tee</li>
+                <li class="mb-2"><strong>Origin:</strong> Made with premium materials</li>
+            </ul>
+        </div>
+        <!-- Reviews Section -->
+        <div class="tabcontent" id="rating-reviews">
+            <div class="reviews-header my-4">
+                <p class="reviews-title">
+                    All Reviews <span class="reviews-count">(451)</span>
+                </p>
+                <div class="reviews-controls">
+                    <button class="filter-btn">
+                        <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.25 9V17.625C11.25 17.9234 11.1315 18.2095 10.9205 18.4205C10.7095 18.6315 10.4234 18.75 10.125 18.75C9.82663 18.75 9.54048 18.6315 9.3295 18.4205C9.11853 18.2095 9 17.9234 9 17.625V9C9 8.70163 9.11853 8.41548 9.3295 8.2045C9.54048 7.99353 9.82663 7.875 10.125 7.875C10.4234 7.875 10.7095 7.99353 10.9205 8.2045C11.1315 8.41548 11.25 8.70163 11.25 9ZM16.875 15.375C16.5766 15.375 16.2905 15.4935 16.0795 15.7045C15.8685 15.9155 15.75 16.2016 15.75 16.5V17.625C15.75 17.9234 15.8685 18.2095 16.0795 18.4205C16.2905 18.6315 16.5766 18.75 16.875 18.75C17.1734 18.75 17.4595 18.6315 17.6705 18.4205C17.8815 18.2095 18 17.9234 18 17.625V16.5C18 16.2016 17.8815 15.9155 17.6705 15.7045C17.4595 15.4935 17.1734 15.375 16.875 15.375ZM19.125 11.625H18V1.125C18 0.826631 17.8815 0.540483 17.6705 0.329505C17.4595 0.118526 17.1734 0 16.875 0C16.5766 0 16.2905 0.118526 16.0795 0.329505C15.8685 0.540483 15.75 0.826631 15.75 1.125V11.625H14.625C14.3266 11.625 14.0405 11.7435 13.8295 11.9545C13.6185 12.1655 13.5 12.4516 13.5 12.75C13.5 13.0484 13.6185 13.3345 13.8295 13.5455C14.0405 13.7565 14.3266 13.875 14.625 13.875H19.125C19.4234 13.875 19.7095 13.7565 19.9205 13.5455C20.1315 13.3345 20.25 13.0484 20.25 12.75C20.25 12.4516 20.1315 12.1655 19.9205 11.9545C19.7095 11.7435 19.4234 11.625 19.125 11.625ZM3.375 12.375C3.07663 12.375 2.79048 12.4935 2.5795 12.7045C2.36853 12.9155 2.25 13.2016 2.25 13.5V17.625C2.25 17.9234 2.36853 18.2095 2.5795 18.4205C2.79048 18.6315 3.07663 18.75 3.375 18.75C3.67337 18.75 3.95952 18.6315 4.1705 18.4205C4.38147 18.2095 4.5 17.9234 4.5 17.625V13.5C4.5 13.2016 4.38147 12.9155 4.1705 12.7045C3.95952 12.4935 3.67337 12.375 3.375 12.375ZM5.625 8.625H4.5V1.125C4.5 0.826631 4.38147 0.540483 4.1705 0.329505C3.95952 0.118526 3.67337 0 3.375 0C3.07663 0 2.79048 0.118526 2.5795 0.329505C2.36853 0.540483 2.25 0.826631 2.25 1.125V8.625H1.125C0.826631 8.625 0.540483 8.74353 0.329505 8.9545C0.118526 9.16548 0 9.45163 0 9.75C0 10.0484 0.118526 10.3345 0.329505 10.5455C0.540483 10.7565 0.826631 10.875 1.125 10.875H5.625C5.92337 10.875 6.20952 10.7565 6.4205 10.5455C6.63147 10.3345 6.75 10.0484 6.75 9.75C6.75 9.45163 6.63147 9.16548 6.4205 8.9545C6.20952 8.74353 5.92337 8.625 5.625 8.625ZM12.375 4.125H11.25V1.125C11.25 0.826631 11.1315 0.540483 10.9205 0.329505C10.7095 0.118526 10.4234 0 10.125 0C9.82663 0 9.54048 0.118526 9.3295 0.329505C9.11853 0.540483 9 0.826631 9 1.125V4.125H7.875C7.57663 4.125 7.29048 4.24353 7.0795 4.4545C6.86853 4.66548 6.75 4.95163 6.75 5.25C6.75 5.54837 6.86853 5.83452 7.0795 6.0455C7.29048 6.25647 7.57663 6.375 7.875 6.375H12.375C12.6734 6.375 12.9595 6.25647 13.1705 6.0455C13.3815 5.83452 13.5 5.54837 13.5 5.25C13.5 4.95163 13.3815 4.66548 13.1705 4.4545C12.9595 4.24353 12.6734 4.125 12.375 4.125Z"
+                                fill="black" />
+                        </svg>
 
-                </button>
-                <div class="dropdown sort-dropdown">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Latest <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                    </button>
+                    <div class="dropdown sort-dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Latest <span><svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M11.5306 1.53063L6.53063 6.53063C6.46095 6.60055 6.37816 6.65602 6.28699 6.69388C6.19583 6.73173 6.09809 6.75122 5.99938 6.75122C5.90067 6.75122 5.80293 6.73173 5.71176 6.69388C5.6206 6.65602 5.53781 6.60055 5.46813 6.53063L0.468128 1.53063C0.327232 1.38973 0.248077 1.19864 0.248077 0.999378C0.248077 0.80012 0.327232 0.609024 0.468128 0.468128C0.609025 0.327231 0.800121 0.248077 0.999378 0.248077C1.19864 0.248077 1.38973 0.327231 1.53063 0.468128L6 4.9375L10.4694 0.467503C10.6103 0.326607 10.8014 0.247452 11.0006 0.247452C11.1999 0.247452 11.391 0.326607 11.5319 0.467503C11.6728 0.608399 11.7519 0.799496 11.7519 0.998753C11.7519 1.19801 11.6728 1.38911 11.5319 1.53L11.5306 1.53063Z"
+                                        fill="black" />
+                                </svg>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu mt-1">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <button class="write-review-btn">Write a Review</button>
+                </div>
+            </div>
+
+            <!-- Reviews Grid -->
+            <div class="row">
+                <!-- Review 1 -->
+                <div class="col-lg-6 mb-4">
+                    <div class="review-card">
+                        <button class="more-options">
+                            <!-- <i class="fas fa-ellipsis-h"></i> -->
+                            <svg width="21" height="6" viewBox="0 0 21 6" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
-                                    d="M11.5306 1.53063L6.53063 6.53063C6.46095 6.60055 6.37816 6.65602 6.28699 6.69388C6.19583 6.73173 6.09809 6.75122 5.99938 6.75122C5.90067 6.75122 5.80293 6.73173 5.71176 6.69388C5.6206 6.65602 5.53781 6.60055 5.46813 6.53063L0.468128 1.53063C0.327232 1.38973 0.248077 1.19864 0.248077 0.999378C0.248077 0.80012 0.327232 0.609024 0.468128 0.468128C0.609025 0.327231 0.800121 0.248077 0.999378 0.248077C1.19864 0.248077 1.38973 0.327231 1.53063 0.468128L6 4.9375L10.4694 0.467503C10.6103 0.326607 10.8014 0.247452 11.0006 0.247452C11.1999 0.247452 11.391 0.326607 11.5319 0.467503C11.6728 0.608399 11.7519 0.799496 11.7519 0.998753C11.7519 1.19801 11.6728 1.38911 11.5319 1.53L11.5306 1.53063Z"
-                                    fill="black" />
+                                    d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
+                                    fill="black" fill-opacity="0.4" />
                             </svg>
-                        </span>
-                    </button>
-                    <ul class="dropdown-menu mt-1">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </div>
-                <button class="write-review-btn">Write a Review</button>
-            </div>
-        </div>
 
-        <!-- Reviews Grid -->
-        <div class="row">
-            <!-- Review 1 -->
-            <div class="col-lg-6 mb-4">
-                <div class="review-card">
-                    <button class="more-options">
-                        <!-- <i class="fas fa-ellipsis-h"></i> -->
-                        <svg width="21" height="6" viewBox="0 0 21 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
-                                fill="black" fill-opacity="0.4" />
-                        </svg>
-
-                    </button>
-                    <div class="review-stars">
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg>
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg>
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg>
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg>
-                        <svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
-                                fill="#FFC633" />
-                        </svg>
-                    </div>
-                    <div class="reviewer-info">
-                        <span class="reviewer-name">Samantha D.</span>
-                        <!-- <i class="fas fa-check-circle verified-badge"></i> -->
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
-                                fill="#01AB31" />
-                        </svg>
-
-                    </div>
-                    <p class="review-text">
-                        "I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a
-                        fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt."
-                    </p>
-                    <div class="review-date">Posted on August 14, 2023</div>
-                </div>
-            </div>
-
-            <!-- Review 2 -->
-            <div class="col-lg-6 mb-4">
-                <div class="review-card">
-                    <button class="more-options">
-                        <!-- <i class="fas fa-ellipsis-h"></i> -->
-                        <svg width="21" height="6" viewBox="0 0 21 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
-                                fill="black" fill-opacity="0.4" />
-                        </svg>
-
-                    </button>
-                    <div class="review-stars">
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg>
-                    </div>
-                    <div class="reviewer-info">
-                        <span class="reviewer-name">Alex M.</span>
-                        <!-- <i class="fas fa-check-circle verified-badge"></i> -->
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
-                                fill="#01AB31" />
-                        </svg>
-
-                    </div>
-                    <p class="review-text">
-                        "The t-shirt exceeded my expectations! The colors are vibrant and the print quality is
-                        top-notch. Being a UI/UX designer myself, I'm quite picky about aesthetics, and this t-shirt
-                        definitely gets a thumbs up from me."
-                    </p>
-                    <div class="review-date">Posted on August 15, 2023</div>
-                </div>
-            </div>
-
-            <!-- Review 3 -->
-            <div class="col-lg-6 mb-4">
-                <div class="review-card">
-                    <button class="more-options">
-                        <!-- <i class="fas fa-ellipsis-h"></i> -->
-                        <svg width="21" height="6" viewBox="0 0 21 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
-                                fill="black" fill-opacity="0.4" />
-                        </svg>
-
-                    </button>
-                    <div class="review-stars">
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="9" height="17" viewBox="0 0 9 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
-                                fill="#FFC633" />
-                        </svg>
-                    </div>
-                    <div class="reviewer-info">
-                        <span class="reviewer-name">Ethan R.</span>
-                        <!-- <i class="fas fa-check-circle verified-badge"></i> -->
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
-                                fill="#01AB31" />
-                        </svg>
-
-                    </div>
-                    <p class="review-text">
-                        "This t-shirt is a must-have for anyone who appreciates good design. The minimalistic yet
-                        stylish pattern caught my eye, and the fit is perfect. I can see the designer's touch in every
-                        aspect of this shirt."
-                    </p>
-                    <div class="review-date">Posted on August 16, 2023</div>
-                </div>
-            </div>
-
-            <!-- Review 4 -->
-            <div class="col-lg-6 mb-4">
-                <div class="review-card">
-                    <button class="more-options">
-                        <!-- <i class="fas fa-ellipsis-h"></i> -->
-                        <svg width="21" height="6" viewBox="0 0 21 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
-                                fill="black" fill-opacity="0.4" />
-                        </svg>
-
-                    </button>
-                    <div class="review-stars">
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg>
-                    </div>
-                    <div class="reviewer-info">
-                        <span class="reviewer-name">Olivia P.</span>
-                        <!-- <i class="fas fa-check-circle verified-badge"></i> -->
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
-                                fill="#01AB31" />
-                        </svg>
-
-                    </div>
-                    <p class="review-text">
-                        "As a UI/UX enthusiast, I value simplicity and functionality. This t-shirt not only represents
-                        those principles but also feels great to wear. It's evident that the designer poured their
-                        creativity into making this t-shirt stand out."
-                    </p>
-                    <div class="review-date">Posted on August 17, 2023</div>
-                </div>
-            </div>
-
-            <!-- Review 5 -->
-            <div class="col-lg-6 mb-4">
-                <div class="review-card">
-                    <button class="more-options">
-                        <!-- <i class="fas fa-ellipsis-h"></i> -->
-                        <svg width="21" height="6" viewBox="0 0 21 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
-                                fill="black" fill-opacity="0.4" />
-                        </svg>
-
-                    </button>
-                    <div class="review-stars">
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg>
-                    </div>
-                    <div class="reviewer-info">
-                        <span class="reviewer-name">Liam K.</span>
-                        <!-- <i class="fas fa-check-circle verified-badge"></i> -->
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
-                                fill="#01AB31" />
-                        </svg>
-
-                    </div>
-                    <p class="review-text">
-                        "This t-shirt is a fusion of comfort and creativity. The fabric is soft, and the design speaks
-                        volumes about the designer's skill. It's like wearing a piece of art that reflects my passion
-                        for both design and fashion."
-                    </p>
-                    <div class="review-date">Posted on August 18, 2023</div>
-                </div>
-            </div>
-
-            <!-- Review 6 -->
-            <div class="col-lg-6 mb-4">
-                <div class="review-card">
-                    <button class="more-options">
-                        <!-- <i class="fas fa-ellipsis-h"></i> -->
-                        <svg width="21" height="6" viewBox="0 0 21 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
-                                fill="black" fill-opacity="0.4" />
-                        </svg>
-
-                    </button>
-                    <div class="review-stars">
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                                fill="#FFC633" />
-                        </svg>
-                    </div>
-                    <div class="reviewer-info">
-                        <span class="reviewer-name">Ava H.</span>
-                        <!-- <i class="fas fa-check-circle verified-badge"></i> -->
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
-                                fill="#01AB31" />
-                        </svg>
-
-                    </div>
-                    <p class="review-text">
-                        "I'm not just wearing a t-shirt; I'm wearing a piece of design philosophy. The intricate details
-                        and thoughtful layout of the design make this shirt a conversation starter."
-                    </p>
-                    <div class="review-date">Posted on August 19, 2023</div>
-                </div>
-            </div>
-        </div>
-        <!-- Load More Button -->
-        <button class="load-more-btn">Load More Reviews</button>
-    </div>
-    <script>
-        // Additional reviews data
-        const additionalReviews = [
-            {
-                name: "Noah W.",
-                stars: 5,
-                text: "Outstanding quality! The attention to detail in both the design and fabric is remarkable. I've received so many compliments wearing this shirt.",
-                date: "August 20, 2023"
-            },
-            {
-                name: "Emma S.",
-                stars: 4.5,
-                text: "Love the minimalist aesthetic! As a graphic designer, I can really appreciate the clean lines and thoughtful composition. Fits perfectly too.",
-                date: "August 21, 2023"
-            },
-            {
-                name: "James L.",
-                stars: 4,
-                text: "Great shirt for the price. The design is eye-catching and the material is comfortable. Would definitely recommend to friends.",
-                date: "August 22, 2023"
-            },
-            {
-                name: "Sophia K.",
-                stars: 5,
-                text: "Absolutely perfect! The shirt arrived quickly and exceeded all my expectations. The quality is premium and the design is sophisticated yet casual.",
-                date: "August 23, 2023"
-            },
-            {
-                name: "Mason T.",
-                stars: 4.5,
-                text: "This t-shirt has become a staple in my wardrobe. The fabric breathes well and the design never gets old. Worth every penny!",
-                date: "August 24, 2023"
-            },
-            {
-                name: "Isabella R.",
-                stars: 5,
-                text: "I'm impressed by the craftsmanship. Every stitch is perfect and the print quality is exceptional. This is what designer clothing should be!",
-                date: "August 25, 2023"
-            }
-        ];
-
-        let currentIndex = 0;
-
-        // Function to create star HTML with SVG
-        function createStars(rating) {
-            let starsHTML = '';
-            const fullStars = Math.floor(rating);
-            const hasHalfStar = rating % 1 !== 0;
-
-            // Full star SVG
-            const fullStarSVG = `
-                <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
-                            fill="#FFC633" />
-                    </svg>
-            `;
-
-            // Half star SVG
-            const halfStarSVG = `
-                <svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
-                            fill="#FFC633" />
-                    </svg>
-            `;
-
-            for (let i = 0; i < fullStars; i++) {
-                starsHTML += fullStarSVG;
-            }
-            if (hasHalfStar) {
-                starsHTML += halfStarSVG;
-            }
-            return starsHTML;
-        }
-        // Function to create review card HTML
-        function createReviewCard(review) {
-            return `
-                <div class="col-lg-6 mb-4">
-                    <div class="review-card" style="opacity: 0; animation: fadeIn 0.5s forwards;">
-                        <button class="more-options">
-                            <svg width="21" height="6" viewBox="0 0 21 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
-                                fill="black" fill-opacity="0.4" />
-                        </svg>
                         </button>
                         <div class="review-stars">
-                            ${createStars(review.stars)}
+                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg>
+                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg>
+                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg>
+                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg>
+                            <svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                    fill="#FFC633" />
+                            </svg>
                         </div>
                         <div class="reviewer-info">
-                            <span class="reviewer-name">${review.name}</span>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
-                                fill="#01AB31" />
-                        </svg>
+                            <span class="reviewer-name">Samantha D.</span>
+                            <!-- <i class="fas fa-check-circle verified-badge"></i> -->
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
+                                    fill="#01AB31" />
+                            </svg>
+
                         </div>
                         <p class="review-text">
-                            ${review.text}
+                            "I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable.
+                            As a
+                            fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt."
                         </p>
-                        <div class="review-date">Posted on ${review.date}</div>
+                        <div class="review-date">Posted on August 14, 2023</div>
                     </div>
                 </div>
-            `;
+
+                <!-- Review 2 -->
+                <div class="col-lg-6 mb-4">
+                    <div class="review-card">
+                        <button class="more-options">
+                            <!-- <i class="fas fa-ellipsis-h"></i> -->
+                            <svg width="21" height="6" viewBox="0 0 21 6" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
+                                    fill="black" fill-opacity="0.4" />
+                            </svg>
+
+                        </button>
+                        <div class="review-stars">
+                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg>
+                        </div>
+                        <div class="reviewer-info">
+                            <span class="reviewer-name">Alex M.</span>
+                            <!-- <i class="fas fa-check-circle verified-badge"></i> -->
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
+                                    fill="#01AB31" />
+                            </svg>
+
+                        </div>
+                        <p class="review-text">
+                            "The t-shirt exceeded my expectations! The colors are vibrant and the print quality is
+                            top-notch. Being a UI/UX designer myself, I'm quite picky about aesthetics, and this t-shirt
+                            definitely gets a thumbs up from me."
+                        </p>
+                        <div class="review-date">Posted on August 15, 2023</div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="col-lg-6 mb-4">
+                    <div class="review-card">
+                        <button class="more-options">
+                            <!-- <i class="fas fa-ellipsis-h"></i> -->
+                            <svg width="21" height="6" viewBox="0 0 21 6" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
+                                    fill="black" fill-opacity="0.4" />
+                            </svg>
+
+                        </button>
+                        <div class="review-stars">
+                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="9" height="17" viewBox="0 0 9 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M3.56595 16.9793L8.99999 13.956V0.255005L6.38079 5.89491L0.207535 6.6431L4.76203 10.8769L3.56595 16.9793Z"
+                                    fill="#FFC633" />
+                            </svg>
+                        </div>
+                        <div class="reviewer-info">
+                            <span class="reviewer-name">Ethan R.</span>
+                            <!-- <i class="fas fa-check-circle verified-badge"></i> -->
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
+                                    fill="#01AB31" />
+                            </svg>
+
+                        </div>
+                        <p class="review-text">
+                            "This t-shirt is a must-have for anyone who appreciates good design. The minimalistic yet
+                            stylish pattern caught my eye, and the fit is perfect. I can see the designer's touch in
+                            every
+                            aspect of this shirt."
+                        </p>
+                        <div class="review-date">Posted on August 16, 2023</div>
+                    </div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="col-lg-6 mb-4">
+                    <div class="review-card">
+                        <button class="more-options">
+                            <!-- <i class="fas fa-ellipsis-h"></i> -->
+                            <svg width="21" height="6" viewBox="0 0 21 6" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
+                                    fill="black" fill-opacity="0.4" />
+                            </svg>
+
+                        </button>
+                        <div class="review-stars">
+                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg>
+                        </div>
+                        <div class="reviewer-info">
+                            <span class="reviewer-name">Olivia P.</span>
+                            <!-- <i class="fas fa-check-circle verified-badge"></i> -->
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
+                                    fill="#01AB31" />
+                            </svg>
+
+                        </div>
+                        <p class="review-text">
+                            "As a UI/UX enthusiast, I value simplicity and functionality. This t-shirt not only
+                            represents
+                            those principles but also feels great to wear. It's evident that the designer poured their
+                            creativity into making this t-shirt stand out."
+                        </p>
+                        <div class="review-date">Posted on August 17, 2023</div>
+                    </div>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="col-lg-6 mb-4">
+                    <div class="review-card">
+                        <button class="more-options">
+                            <!-- <i class="fas fa-ellipsis-h"></i> -->
+                            <svg width="21" height="6" viewBox="0 0 21 6" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
+                                    fill="black" fill-opacity="0.4" />
+                            </svg>
+
+                        </button>
+                        <div class="review-stars">
+                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg>
+                        </div>
+                        <div class="reviewer-info">
+                            <span class="reviewer-name">Liam K.</span>
+                            <!-- <i class="fas fa-check-circle verified-badge"></i> -->
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
+                                    fill="#01AB31" />
+                            </svg>
+
+                        </div>
+                        <p class="review-text">
+                            "This t-shirt is a fusion of comfort and creativity. The fabric is soft, and the design
+                            speaks
+                            volumes about the designer's skill. It's like wearing a piece of art that reflects my
+                            passion
+                            for both design and fashion."
+                        </p>
+                        <div class="review-date">Posted on August 18, 2023</div>
+                    </div>
+                </div>
+
+                <!-- Review 6 -->
+                <div class="col-lg-6 mb-4">
+                    <div class="review-card">
+                        <button class="more-options">
+                            <!-- <i class="fas fa-ellipsis-h"></i> -->
+                            <svg width="21" height="6" viewBox="0 0 21 6" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.75 2.625C12.75 3.14418 12.596 3.65169 12.3076 4.08337C12.0192 4.51505 11.6092 4.8515 11.1295 5.05018C10.6499 5.24886 10.1221 5.30085 9.61289 5.19956C9.10369 5.09828 8.63596 4.84827 8.26885 4.48116C7.90173 4.11404 7.65173 3.64631 7.55044 3.13711C7.44915 2.62791 7.50114 2.10011 7.69982 1.62046C7.8985 1.1408 8.23495 0.730831 8.66663 0.442392C9.09831 0.153953 9.60583 0 10.125 0C10.8212 0 11.4889 0.276562 11.9812 0.768845C12.4734 1.26113 12.75 1.92881 12.75 2.625ZM2.625 0C2.10583 0 1.59831 0.153953 1.16663 0.442392C0.73495 0.730831 0.398497 1.1408 0.199817 1.62046C0.00113737 2.10011 -0.0508464 2.62791 0.0504398 3.13711C0.151726 3.64631 0.401733 4.11404 0.768846 4.48116C1.13596 4.84827 1.60369 5.09828 2.11289 5.19956C2.62209 5.30085 3.14989 5.24886 3.62955 5.05018C4.1092 4.8515 4.51917 4.51505 4.80761 4.08337C5.09605 3.65169 5.25 3.14418 5.25 2.625C5.25 1.92881 4.97344 1.26113 4.48116 0.768845C3.98887 0.276562 3.32119 0 2.625 0ZM17.625 0C17.1058 0 16.5983 0.153953 16.1666 0.442392C15.735 0.730831 15.3985 1.1408 15.1998 1.62046C15.0011 2.10011 14.9492 2.62791 15.0504 3.13711C15.1517 3.64631 15.4017 4.11404 15.7688 4.48116C16.136 4.84827 16.6037 5.09828 17.1129 5.19956C17.6221 5.30085 18.1499 5.24886 18.6295 5.05018C19.1092 4.8515 19.5192 4.51505 19.8076 4.08337C20.096 3.65169 20.25 3.14418 20.25 2.625C20.25 2.28028 20.1821 1.93894 20.0502 1.62046C19.9183 1.30198 19.7249 1.0126 19.4812 0.768845C19.2374 0.525091 18.948 0.331735 18.6295 0.199816C18.3111 0.0678974 17.9697 0 17.625 0Z"
+                                    fill="black" fill-opacity="0.4" />
+                            </svg>
+
+                        </button>
+                        <div class="review-stars">
+                            <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg><svg width="19" height="17" viewBox="0 0 19 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.24494 0.255005L11.8641 5.89491L18.0374 6.6431L13.4829 10.8769L14.679 16.9793L9.24494 13.956L3.8109 16.9793L5.00697 10.8769L0.452479 6.6431L6.62573 5.89491L9.24494 0.255005Z"
+                                    fill="#FFC633" />
+                            </svg>
+                        </div>
+                        <div class="reviewer-info">
+                            <span class="reviewer-name">Ava H.</span>
+                            <!-- <i class="fas fa-check-circle verified-badge"></i> -->
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z"
+                                    fill="#01AB31" />
+                            </svg>
+
+                        </div>
+                        <p class="review-text">
+                            "I'm not just wearing a t-shirt; I'm wearing a piece of design philosophy. The intricate
+                            details
+                            and thoughtful layout of the design make this shirt a conversation starter."
+                        </p>
+                        <div class="review-date">Posted on August 19, 2023</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Load More Button -->
+            <button class="load-more-btn">Load More Reviews</button>
+        </div>
+        <!-- FAQs -->
+        <!-- FAQs Tab -->
+        <div class="tabcontent" id="FAQs">
+            <p class="reviews-title mb-4">
+                Frequently Asked Questions
+            </p>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            What is the material of this t-shirt?
+                        </button>
+                    </p>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            This t-shirt is made from 100% premium cotton, ensuring maximum comfort and breathability.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq2">
+                            How should I care for this t-shirt?
+                        </button>
+                    </p>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Machine wash cold with similar colors. Tumble dry on low heat. Do not bleach or iron
+                            directly on the print.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq3">
+                            What is your return policy?
+                        </button>
+                    </p>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            We offer a 30 days return policy. Items must be unworn, unwashed, and in original condition
+                            with tags attached.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Tabs JS
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
 
         // Tab switching functionality
@@ -1343,9 +913,9 @@
     <!-- Recomend product -->
     <!-- Product -->
     <h2 style="text-align:center">YOU MIGHT ALSO LIKE</h2>
-    <div class="container-md py-4">
-        <div class="row d-flex flex-nowrap overflow-auto">
-            <div class="product-card col ">
+    <div class="product-container container">
+        <div class="row">
+            <a href="./product-detail-page.html" class="product-card col">
                 <div class="product-item">
                     <img src="./asset/img/product-item/Tshirt.png" alt="T shirt">
                 </div>
@@ -1383,8 +953,8 @@
                     </div>
                     <p class="price-item">$120</p>
                 </div>
-            </div>
-            <div class="product-card col ">
+            </a>
+            <a href="#" class="product-card col">
                 <div class="product-item">
                     <img src="./asset/img/product-item/jeans.png" alt="T shirt">
                 </div>
@@ -1420,8 +990,8 @@
                         <span class="discount-badge">-20%</span>
                     </p>
                 </div>
-            </div>
-            <div class="product-card col ">
+            </a>
+            <a href="#" class="product-card col">
                 <div class="product-item">
                     <img src="./asset/img/product-item/checkered-shirt.png" alt="T shirt">
                 </div>
@@ -1457,8 +1027,8 @@
                     </div>
                     <p class="price-item">$180</p>
                 </div>
-            </div>
-            <div class="product-card col ">
+            </a>
+            <a href="#" class="product-card col">
                 <div class="product-item">
                     <img src="./asset/img/product-item/Tshirt2.png" alt="T shirt">
                 </div>
@@ -1497,13 +1067,12 @@
                         <span class="discount-badge">-30%</span>
                     </p>
                 </div>
-            </div>
+            </a>
         </div>
-
     </div>
 
 
-     <footer class="container-fluid">
+    <footer class="container-fluid">
         <div class="newsletter-section">
             <h2 class="newsletter-title">STAY UPTO DATE ABOUT OUR LATEST OFFERS</h2>
             <div class="newsletter-form">
@@ -1526,37 +1095,31 @@
                 </p>
                 <div class="social-links">
                     <a href="#" class="social-link" aria-label="Twitter"><svg width="12" height="10" viewBox="0 0 12 10"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            xmlns="http://www.w3.org/2000/svg">
                             <path
-                                d="M11.2071 1.9831C10.7881 2.16933 10.3458 2.28573 9.88023 2.35557C10.3458 2.07622 10.7183 1.63392 10.8812 1.0985C10.4389 1.35457 9.95006 1.5408 9.41465 1.6572C8.99562 1.2149 8.39037 0.935547 7.73856 0.935547C6.48149 0.935547 5.45721 1.95982 5.45721 3.21689C5.45721 3.40312 5.48049 3.56608 5.52705 3.72903C3.64145 3.63591 1.94208 2.72803 0.801411 1.33129C0.615178 1.68048 0.498783 2.05294 0.498783 2.47196C0.498783 3.26345 0.894527 3.96182 1.52306 4.38084C1.1506 4.35756 0.801411 4.26445 0.475504 4.10149V4.12477C0.475504 5.24216 1.26699 6.17333 2.31455 6.38284C2.12831 6.42939 1.9188 6.45267 1.70929 6.45267C1.56962 6.45267 1.40666 6.42939 1.26699 6.40612C1.56962 7.314 2.40766 7.98909 3.40866 7.98909C2.61717 8.59434 1.63945 8.96681 0.56862 8.96681C0.382388 8.96681 0.196156 8.96681 0.0332031 8.94353C1.05748 9.59534 2.24471 9.96781 3.54833 9.96781C7.76184 9.96781 10.0665 6.47595 10.0665 3.44968C10.0665 3.35656 10.0665 3.24017 10.0665 3.14705C10.5088 2.84443 10.9045 2.44868 11.2071 1.9831Z"
-                                fill="black" />
+                                d="M11.2071 1.9831C10.7881 2.16933 10.3458 2.28573 9.88023 2.35557C10.3458 2.07622 10.7183 1.63392 10.8812 1.0985C10.4389 1.35457 9.95006 1.5408 9.41465 1.6572C8.99562 1.2149 8.39037 0.935547 7.73856 0.935547C6.48149 0.935547 5.45721 1.95982 5.45721 3.21689C5.45721 3.40312 5.48049 3.56608 5.52705 3.72903C3.64145 3.63591 1.94208 2.72803 0.801411 1.33129C0.615178 1.68048 0.498783 2.05294 0.498783 2.47196C0.498783 3.26345 0.894527 3.96182 1.52306 4.38084C1.1506 4.35756 0.801411 4.26445 0.475504 4.10149V4.12477C0.475504 5.24216 1.26699 6.17333 2.31455 6.38284C2.12831 6.42939 1.9188 6.45267 1.70929 6.45267C1.56962 6.45267 1.40666 6.42939 1.26699 6.40612C1.56962 7.314 2.40766 7.98909 3.40866 7.98909C2.61717 8.59434 1.63945 8.96681 0.56862 8.96681C0.382388 8.96681 0.196156 8.96681 0.0332031 8.94353C1.05748 9.59534 2.24471 9.96781 3.54833 9.96781C7.76184 9.96781 10.0665 6.47595 10.0665 3.44968C10.0665 3.35656 10.0665 3.24017 10.0665 3.14705C10.5088 2.84443 10.9045 2.44868 11.2071 1.9831Z" />
                         </svg>
                     </a>
                     <a href="#" class="social-link" aria-label="Facebook"><svg width="8" height="13" viewBox="0 0 8 13"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            xmlns="http://www.w3.org/2000/svg">
                             <path
-                                d="M2.70873 12.3038V6.75026H0.839844V4.58594H2.70873V2.98981C2.70873 1.13752 3.84005 0.128906 5.49242 0.128906C6.28392 0.128906 6.96418 0.187836 7.16243 0.214175V2.14993L6.01642 2.15045C5.11776 2.15045 4.94376 2.57748 4.94376 3.20411V4.58594H7.08697L6.80791 6.75026H4.94376V12.3038H2.70873Z"
-                                fill="black" />
+                                d="M2.70873 12.3038V6.75026H0.839844V4.58594H2.70873V2.98981C2.70873 1.13752 3.84005 0.128906 5.49242 0.128906C6.28392 0.128906 6.96418 0.187836 7.16243 0.214175V2.14993L6.01642 2.15045C5.11776 2.15045 4.94376 2.57748 4.94376 3.20411V4.58594H7.08697L6.80791 6.75026H4.94376V12.3038H2.70873Z" />
                         </svg>
                     </a>
                     <a href="#" class="social-link" aria-label="Instagram"><svg width="14" height="14"
-                            viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
                             <path
-                                d="M7.00076 1.44721C8.80947 1.44721 9.02366 1.45398 9.73818 1.48656C10.1678 1.49182 10.5933 1.5707 10.9962 1.71979C11.2884 1.83248 11.5538 2.00511 11.7753 2.22656C11.9967 2.44802 12.1694 2.71339 12.282 3.00559C12.4311 3.40853 12.51 3.83406 12.5153 4.26366C12.5475 4.97817 12.5546 5.19237 12.5546 7.00108C12.5546 8.80979 12.5479 9.02398 12.5153 9.7385C12.51 10.1681 12.4311 10.5936 12.282 10.9966C12.1694 11.2888 11.9967 11.5541 11.7753 11.7756C11.5538 11.997 11.2884 12.1697 10.9962 12.2824C10.5933 12.4315 10.1678 12.5103 9.73818 12.5156C9.02398 12.5479 8.80979 12.5549 7.00076 12.5549C5.19172 12.5549 4.97753 12.5482 4.26334 12.5156C3.83373 12.5103 3.40821 12.4315 3.00527 12.2824C2.71307 12.1697 2.44769 11.997 2.22624 11.7756C2.00479 11.5541 1.83216 11.2888 1.71947 10.9966C1.57038 10.5936 1.4915 10.1681 1.48624 9.7385C1.45398 9.02398 1.44689 8.80979 1.44689 7.00108C1.44689 5.19237 1.45366 4.97817 1.48624 4.26366C1.4915 3.83406 1.57038 3.40853 1.71947 3.00559C1.83216 2.71339 2.00479 2.44802 2.22624 2.22656C2.44769 2.00511 2.71307 1.83248 3.00527 1.71979C3.40821 1.5707 3.83373 1.49182 4.26334 1.48656C4.97785 1.4543 5.19205 1.44721 7.00076 1.44721ZM7.00076 0.226562C5.16205 0.226562 4.93043 0.234304 4.20785 0.267208C3.64561 0.278391 3.08934 0.384847 2.56269 0.582046C2.11092 0.752261 1.70172 1.019 1.36366 1.36366C1.01869 1.70184 0.751722 2.11127 0.581401 2.56334C0.384201 3.08998 0.277746 3.64625 0.266563 4.2085C0.234304 4.93043 0.226562 5.16205 0.226562 7.00076C0.226562 8.83946 0.234304 9.07108 0.267208 9.79366C0.278391 10.3559 0.384847 10.9122 0.582046 11.4388C0.752178 11.8908 1.01892 12.3002 1.36366 12.6385C1.70191 12.9832 2.11133 13.25 2.56334 13.4201C3.08998 13.6173 3.64626 13.7238 4.2085 13.7349C4.93108 13.7672 5.16172 13.7756 7.0014 13.7756C8.84108 13.7756 9.07172 13.7679 9.7943 13.7349C10.3565 13.7238 10.9128 13.6173 11.4395 13.4201C11.8893 13.2457 12.2978 12.9794 12.6389 12.6381C12.98 12.2968 13.246 11.8882 13.4201 11.4382C13.6173 10.9115 13.7238 10.3553 13.735 9.79301C13.7672 9.07108 13.775 8.83946 13.775 7.00076C13.775 5.16205 13.7672 4.93043 13.7343 4.20785C13.7231 3.64561 13.6167 3.08934 13.4195 2.56269C13.2493 2.11068 12.9826 1.70126 12.6379 1.36301C12.2996 1.01828 11.8902 0.751533 11.4382 0.581401C10.9115 0.384201 10.3553 0.277746 9.79301 0.266563C9.07108 0.234304 8.83947 0.226562 7.00076 0.226562Z"
-                                fill="black" />
+                                d="M7.00076 1.44721C8.80947 1.44721 9.02366 1.45398 9.73818 1.48656C10.1678 1.49182 10.5933 1.5707 10.9962 1.71979C11.2884 1.83248 11.5538 2.00511 11.7753 2.22656C11.9967 2.44802 12.1694 2.71339 12.282 3.00559C12.4311 3.40853 12.51 3.83406 12.5153 4.26366C12.5475 4.97817 12.5546 5.19237 12.5546 7.00108C12.5546 8.80979 12.5479 9.02398 12.5153 9.7385C12.51 10.1681 12.4311 10.5936 12.282 10.9966C12.1694 11.2888 11.9967 11.5541 11.7753 11.7756C11.5538 11.997 11.2884 12.1697 10.9962 12.2824C10.5933 12.4315 10.1678 12.5103 9.73818 12.5156C9.02398 12.5479 8.80979 12.5549 7.00076 12.5549C5.19172 12.5549 4.97753 12.5482 4.26334 12.5156C3.83373 12.5103 3.40821 12.4315 3.00527 12.2824C2.71307 12.1697 2.44769 11.997 2.22624 11.7756C2.00479 11.5541 1.83216 11.2888 1.71947 10.9966C1.57038 10.5936 1.4915 10.1681 1.48624 9.7385C1.45398 9.02398 1.44689 8.80979 1.44689 7.00108C1.44689 5.19237 1.45366 4.97817 1.48624 4.26366C1.4915 3.83406 1.57038 3.40853 1.71947 3.00559C1.83216 2.71339 2.00479 2.44802 2.22624 2.22656C2.44769 2.00511 2.71307 1.83248 3.00527 1.71979C3.40821 1.5707 3.83373 1.49182 4.26334 1.48656C4.97785 1.4543 5.19205 1.44721 7.00076 1.44721ZM7.00076 0.226562C5.16205 0.226562 4.93043 0.234304 4.20785 0.267208C3.64561 0.278391 3.08934 0.384847 2.56269 0.582046C2.11092 0.752261 1.70172 1.019 1.36366 1.36366C1.01869 1.70184 0.751722 2.11127 0.581401 2.56334C0.384201 3.08998 0.277746 3.64625 0.266563 4.2085C0.234304 4.93043 0.226562 5.16205 0.226562 7.00076C0.226562 8.83946 0.234304 9.07108 0.267208 9.79366C0.278391 10.3559 0.384847 10.9122 0.582046 11.4388C0.752178 11.8908 1.01892 12.3002 1.36366 12.6385C1.70191 12.9832 2.11133 13.25 2.56334 13.4201C3.08998 13.6173 3.64626 13.7238 4.2085 13.7349C4.93108 13.7672 5.16172 13.7756 7.0014 13.7756C8.84108 13.7756 9.07172 13.7679 9.7943 13.7349C10.3565 13.7238 10.9128 13.6173 11.4395 13.4201C11.8893 13.2457 12.2978 12.9794 12.6389 12.6381C12.98 12.2968 13.246 11.8882 13.4201 11.4382C13.6173 10.9115 13.7238 10.3553 13.735 9.79301C13.7672 9.07108 13.775 8.83946 13.775 7.00076C13.775 5.16205 13.7672 4.93043 13.7343 4.20785C13.7231 3.64561 13.6167 3.08934 13.4195 2.56269C13.2493 2.11068 12.9826 1.70126 12.6379 1.36301C12.2996 1.01828 11.8902 0.751533 11.4382 0.581401C10.9115 0.384201 10.3553 0.277746 9.79301 0.266563C9.07108 0.234304 8.83947 0.226562 7.00076 0.226562Z" />
                             <path
-                                d="M7.00215 3.52344C6.31413 3.52344 5.64155 3.72746 5.06948 4.10971C4.49741 4.49195 4.05154 5.03525 3.78824 5.6709C3.52494 6.30655 3.45605 7.00601 3.59028 7.68081C3.72451 8.35561 4.05582 8.97546 4.54233 9.46197C5.02884 9.94847 5.64868 10.2798 6.32349 10.414C6.99829 10.5482 7.69774 10.4794 8.33339 10.2161C8.96904 9.95276 9.51234 9.50689 9.89459 8.93481C10.2768 8.36274 10.4809 7.69017 10.4809 7.00215C10.4809 6.07954 10.1144 5.19471 9.46197 4.54233C8.80958 3.88994 7.92476 3.52344 7.00215 3.52344ZM7.00215 9.26021C6.55555 9.26021 6.11897 9.12778 5.74764 8.87966C5.3763 8.63154 5.08688 8.27888 4.91597 7.86627C4.74506 7.45366 4.70034 6.99964 4.78747 6.56162C4.8746 6.1236 5.08966 5.72125 5.40546 5.40545C5.72125 5.08966 6.1236 4.8746 6.56162 4.78747C6.99964 4.70034 7.45367 4.74506 7.86627 4.91597C8.27888 5.08687 8.63154 5.3763 8.87966 5.74763C9.12778 6.11897 9.26021 6.55554 9.26021 7.00215C9.26021 7.60102 9.02231 8.17537 8.59884 8.59884C8.17537 9.02231 7.60102 9.26021 7.00215 9.26021Z"
-                                fill="black" />
+                                d="M7.00215 3.52344C6.31413 3.52344 5.64155 3.72746 5.06948 4.10971C4.49741 4.49195 4.05154 5.03525 3.78824 5.6709C3.52494 6.30655 3.45605 7.00601 3.59028 7.68081C3.72451 8.35561 4.05582 8.97546 4.54233 9.46197C5.02884 9.94847 5.64868 10.2798 6.32349 10.414C6.99829 10.5482 7.69774 10.4794 8.33339 10.2161C8.96904 9.95276 9.51234 9.50689 9.89459 8.93481C10.2768 8.36274 10.4809 7.69017 10.4809 7.00215C10.4809 6.07954 10.1144 5.19471 9.46197 4.54233C8.80958 3.88994 7.92476 3.52344 7.00215 3.52344ZM7.00215 9.26021C6.55555 9.26021 6.11897 9.12778 5.74764 8.87966C5.3763 8.63154 5.08688 8.27888 4.91597 7.86627C4.74506 7.45366 4.70034 6.99964 4.78747 6.56162C4.8746 6.1236 5.08966 5.72125 5.40546 5.40545C5.72125 5.08966 6.1236 4.8746 6.56162 4.78747C6.99964 4.70034 7.45367 4.74506 7.86627 4.91597C8.27888 5.08687 8.63154 5.3763 8.87966 5.74763C9.12778 6.11897 9.26021 6.55554 9.26021 7.00215C9.26021 7.60102 9.02231 8.17537 8.59884 8.59884C8.17537 9.02231 7.60102 9.26021 7.00215 9.26021Z" />
                             <path
-                                d="M10.6176 4.19807C11.0665 4.19807 11.4305 3.83412 11.4305 3.38517C11.4305 2.93621 11.0665 2.57227 10.6176 2.57227C10.1686 2.57227 9.80469 2.93621 9.80469 3.38517C9.80469 3.83412 10.1686 4.19807 10.6176 4.19807Z"
-                                fill="black" />
+                                d="M10.6176 4.19807C11.0665 4.19807 11.4305 3.83412 11.4305 3.38517C11.4305 2.93621 11.0665 2.57227 10.6176 2.57227C10.1686 2.57227 9.80469 2.93621 9.80469 3.38517C9.80469 3.83412 10.1686 4.19807 10.6176 4.19807Z" />
                         </svg>
                     </a>
                     <a href="#" class="social-link" aria-label="GitHub"><svg width="14" height="13" viewBox="0 0 14 13"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M6.60685 0.226562C3.01591 0.226562 0.126953 3.11552 0.126953 6.70646C0.126953 9.56841 1.98992 11.9984 4.55488 12.8624C4.87888 12.9164 4.98688 12.7274 4.98688 12.5384C4.98688 12.3764 4.98688 11.9714 4.98688 11.4314C3.1779 11.8364 2.79991 10.5674 2.79991 10.5674C2.50291 9.81141 2.07092 9.62241 2.07092 9.62241C1.47693 9.21742 2.12492 9.21742 2.12492 9.21742C2.77291 9.27142 3.1239 9.89241 3.1239 9.89241C3.6909 10.8914 4.63588 10.5944 5.01387 10.4324C5.06787 10.0004 5.22987 9.73041 5.41887 9.56841C3.98789 9.40642 2.47592 8.83942 2.47592 6.35546C2.47592 5.65347 2.71891 5.05948 3.1509 4.62749C3.09691 4.46549 2.85391 3.8175 3.2049 2.89952C3.2049 2.89952 3.74489 2.73752 4.98688 3.57451C5.49987 3.43951 6.06686 3.35851 6.60685 3.35851C7.14684 3.35851 7.71383 3.43951 8.22682 3.57451C9.4688 2.73752 10.0088 2.89952 10.0088 2.89952C10.3598 3.79051 10.1438 4.43849 10.0628 4.62749C10.4678 5.08648 10.7378 5.65347 10.7378 6.35546C10.7378 8.83942 9.22581 9.37942 7.76783 9.54141C8.01083 9.73041 8.19982 10.1354 8.19982 10.7294C8.19982 11.5934 8.19982 12.2954 8.19982 12.5114C8.19982 12.6734 8.30782 12.8894 8.65882 12.8354C11.2238 11.9984 13.0867 9.56841 13.0867 6.70646C13.0867 3.11552 10.1978 0.226562 6.60685 0.226562Z"
-                                fill="black" />
+                                d="M6.60685 0.226562C3.01591 0.226562 0.126953 3.11552 0.126953 6.70646C0.126953 9.56841 1.98992 11.9984 4.55488 12.8624C4.87888 12.9164 4.98688 12.7274 4.98688 12.5384C4.98688 12.3764 4.98688 11.9714 4.98688 11.4314C3.1779 11.8364 2.79991 10.5674 2.79991 10.5674C2.50291 9.81141 2.07092 9.62241 2.07092 9.62241C1.47693 9.21742 2.12492 9.21742 2.12492 9.21742C2.77291 9.27142 3.1239 9.89241 3.1239 9.89241C3.6909 10.8914 4.63588 10.5944 5.01387 10.4324C5.06787 10.0004 5.22987 9.73041 5.41887 9.56841C3.98789 9.40642 2.47592 8.83942 2.47592 6.35546C2.47592 5.65347 2.71891 5.05948 3.1509 4.62749C3.09691 4.46549 2.85391 3.8175 3.2049 2.89952C3.2049 2.89952 3.74489 2.73752 4.98688 3.57451C5.49987 3.43951 6.06686 3.35851 6.60685 3.35851C7.14684 3.35851 7.71383 3.43951 8.22682 3.57451C9.4688 2.73752 10.0088 2.89952 10.0088 2.89952C10.3598 3.79051 10.1438 4.43849 10.0628 4.62749C10.4678 5.08648 10.7378 5.65347 10.7378 6.35546C10.7378 8.83942 9.22581 9.37942 7.76783 9.54141C8.01083 9.73041 8.19982 10.1354 8.19982 10.7294C8.19982 11.5934 8.19982 12.2954 8.19982 12.5114C8.19982 12.6734 8.30782 12.8894 8.65882 12.8354C11.2238 11.9984 13.0867 9.56841 13.0867 6.70646C13.0867 3.11552 10.1978 0.226562 6.60685 0.226562Z" />
                         </svg>
                     </a>
                 </div>
@@ -1602,7 +1165,6 @@
                 </ul>
             </div>
         </div>
-
         <div class="footer-bottom container">
             <p class="copyright">Shop.co © 2000-2023, All Rights Reserved</p>
             <div class="payment-methods">
