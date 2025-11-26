@@ -211,8 +211,6 @@
      border: none;
      padding: 1rem 3rem;
      border-radius: 50px;
-     font-size: 1rem;
-     font-weight: 500;
      width: 100%;
      transition: all 0.3s;
  }
@@ -266,6 +264,8 @@
  .nav-tabs {
      border-bottom: 2px solid #e9ecef;
      justify-content: center;
+     display: flex;
+     list-style: none;
  }
 
  .nav-tabs .nav-link {
@@ -350,55 +350,66 @@
      background: #e9ecef;
  }
 
- .sort-dropdown {
-     background: rgba(240, 240, 240, 1);
-     border: none;
-     padding: 0.15rem 0.5rem;
-     border-radius: 30px;
+ .dropbtn1 {
+     color: rgba(0, 0, 0, 1);
      cursor: pointer;
-     font-weight: 500;
+     background-color: rgba(240, 240, 240, 1);
+     width: 120px;
+     height: 48px;
+     border: none;
  }
 
- .accordion-button:not(.collapsed) {
-     background-color: #dcdcdc;
+ .dropbtn1 svg {
+     display: inline-block;
+ }
+
+ .dropdown1 {
+     position: relative;
+     display: inline-block;
+ }
+
+ /* Dropdown Content (Hidden by Default) */
+ .dropdown-content1 {
+     display: none;
+     position: absolute;
+     background-color: rgb(0, 0, 0);
+     min-width: 160px;
+     border-radius: 15px;
+     z-index: 1000;
+     list-style: none;
+     top: 45px;
+     left: -20px;
+ }
+
+ /* Links inside the dropdown */
+ .dropdown-content1 a {
+     border-radius: 15px;
+     color: #fff;
+     padding: 12px 16px;
+     text-decoration: none;
+     display: block;
+     margin: 0;
+
+ }
+
+ .dropdown-content1 a:hover {
+     background-color: #ddd;
      color: #000;
  }
 
- .accordion-header{
-    font-weight:700;
- }
- /* Loại bỏ active state cho dropdown của bạn */
- .sort-dropdown .dropdown-toggle:focus,
- .sort-dropdown .dropdown-toggle:active,
- .sort-dropdown .dropdown-toggle.show {
-     box-shadow: none !important;
-     outline: none !important;
-     background-color: transparent !important;
-     border-color: transparent !important;
+ .show {
+     display: block;
  }
 
- .dropdown-toggle::after {
-     display: none !important;
+ .accordion-header {
+     font-weight: 700;
  }
-
- .dropdown-toggle svg {
-     display: inline-block;
-     margin-left: 20px;
- }
-
- .dropdown-toggle {
-     display: flex;
-     align-items: center;
- }
-
 
  .write-review-btn {
      background: #000;
      color: #fff;
      border: none;
      padding: 0.75rem 2rem;
-     border-radius: 30px;
-     font-weight: 600;
      cursor: pointer;
      transition: all 0.3s;
  }
@@ -485,8 +496,6 @@
      background: #fff;
      border: 2px solid #e9ecef;
      padding: 1rem 3rem;
-     border-radius: 30px;
-     font-weight: 600;
      cursor: pointer;
      transition: all 0.3s;
      display: block;
