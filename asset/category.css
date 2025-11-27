@@ -13,8 +13,11 @@
      align-items: center;
      gap: 10px;
      padding: 0 !important;
+     color: rgba(0, 0, 0, 0.6);
  }
-
+ .breadcrumb-item.active{
+    color: rgba(0, 0, 0, 1);
+ }
  .sidebar-container {
      border: 1px rgba(0, 0, 0, 0.1) solid;
      border-radius: 20px;

@@ -13,8 +13,11 @@
      align-items: center;
      gap: 10px;
      padding: 0 !important;
+     color: rgba(0, 0, 0, 0.6);
  }
-
+ .breadcrumb-item.active{
+    color: rgba(0, 0, 0, 1);
+ }
 /* Cart-item CSS */
 .cart-container,
 .cart-order {
